@@ -93,7 +93,8 @@
     // functions
 
 
-    // authors = ["Karl Stolley", "Amy Ferdinandt Stolley", "Homer J. Simpson"];
+    // Function to take DC.creator array and make it a list of authors in
+    // proper MLA or APA style
     function processAuthorList(style,names) {
       var processedNames = []
 
@@ -126,15 +127,18 @@
       // Let's get down to business, having written those inner functions:
 
       if (style == "mla") {
-        var andStyle = "and";
+        var andStyle = "and"; // final author separated by 'and' in MLA
+        // Only the first author becomes Lastname, Firstname in MLA Style
         processedNames[0] = processAuthor(style,names[0]);
+        // Push remainder of names into processedNames array as-is
         for(var i = 1; i < names.length; i++) {
           processedNames.push(names[i]);
         }
       }
 
       if (style == "apa") {
-        var andStyle = "&amp;";
+        var andStyle = "&amp;"; // final author separated by '&' in APA
+        // All authors become, Lastname, F. M. in APA style
         for(var i = 0; i < names.length; i++) {
           processedNames.push(processAuthor(style,names[i]))
         }
