@@ -24,15 +24,25 @@
 // http://stackoverflow.com/questions/7365172/semicolon-before-self-invoking-function
 ;(function($) {
   $.fn.kairosToolbar = function(options) {
-    // Grab the current date
-    var currentDate = new Date();
-    // Array of months, for numeric access and conversion
-    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    // Build out a Month DD, YYYY access date:
-    var accessDate = months[currentDate.getMonth()] + ' ' + currentDate.getDate() + ', ' + currentDate.getFullYear();
-    // Collect all of the DC. metadata elements, and put them into a reusable object
-    // Set up creator as an array to handle multiple authors
-    var DC = { creator: [] };
+
+    // Basic variables
+    var currentDate = new Date(), // Grab the current date
+        months = [ // Array of months; getMonth() will return these values
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December'
+        ],
+        accessDate = months[currentDate.getMonth()] + ' ' + currentDate.getDate() + ', ' + currentDate.getFullYear(),
+        DC = { creator: [] };
     // Logic for looping through the <meta name="DC.attribute" content="value"> elements; watch
     // for elements that can appear multiple times, like DC.creator
     var metaDC = $('meta[name^="DC\."]', 'head');
@@ -46,7 +56,6 @@
         DC[field] = content;
       }
     });
-    // Tack on the in-house APA.author element, too
 
     // Pack all of the metadata from above into HTML...
     // ...and insert it into the DOM
