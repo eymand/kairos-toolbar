@@ -47,19 +47,7 @@
         ],
         accessDate = months[currentDate.getMonth()] + ' ' + currentDate.getDate() + ', ' + currentDate.getFullYear(),
         DC = { creator: [] };
-    // Logic for looping through the <meta name="DC.attribute" content="value"> elements; watch
-    // for elements that can appear multiple times, like DC.creator
-    var metaDC = $('meta[name^="DC\."]', 'head');
-    $.each((metaDC), function(index,value){
-      var field = $(value).attr('name').substr(3);
-      var content = $(value).attr('content');
-      if (field == 'creator') {
-        DC.creator.push(content);
-      }
-      else {
-        DC[field] = content;
-      }
-    });
+
 
     // Pack all of the metadata from above into HTML...
     // ...and insert it into the DOM
@@ -92,6 +80,22 @@
 
     // functions
 
+    // Function for reading through the <meta name="DC.attribute" content="value">
+    // elements and populating the DC object
+    function buildDC() {
+      var metaDC = $('meta[name^="DC\."]', 'head'); // look for <meta name="DC... in <head>
+      $.each((metaDC), function(index,value){
+        var field = $(value).attr('name').substr(3); // look for the name, and chop off the DC. part
+        var content = $(value).attr('content');
+        // Because webtexts can have multiple creators (authors), watch for that
+        if (field == 'creator') {
+          DC.creator.push(content);
+        }
+        else {
+          DC[field] = content;
+        }
+      });
+    }
 
     // Function to take DC.creator array and make it a list of authors in
     // proper MLA or APA style
@@ -105,6 +109,7 @@
           return lastname + ", " + name.join(" ");
         }
         if (style == "apa") {
+          // Older IE (before v. 9) will choke on .map...
           return lastname + ", " + name.map(processInitials).join(" ");
         }
         function processInitials(name) {
