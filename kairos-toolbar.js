@@ -22,7 +22,11 @@
 // shoddy plugins and other JavaScript cruft that may not correctly
 // terminate. See this little Stack Overflow exchange the topic:
 // http://stackoverflow.com/questions/7365172/semicolon-before-self-invoking-function
-;(function($) {
+// Use jQuery.noConflict() to avoid collisions with other JavaScript
+// libraries that may use the $ alias; see
+// http://api.jquery.com/jQuery.noConflict/
+;jQuery.noConflict();
+(function($) {
   $.fn.kairosToolbar = function(options) {
 
     // Basic variables
@@ -86,4 +90,11 @@
     // keep it chainable
     return this;
   };
+
 }(jQuery));
+
+// Check for the existence of the kairos Toolbar options hash;
+// if it doesn't exist, execute w/ defaults
+
+// Otherwise, execute with custom options; note that this requires
+// setting up the custom options above where the toolbar script loads
