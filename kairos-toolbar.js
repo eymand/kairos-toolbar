@@ -30,10 +30,6 @@
     var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     // Build out a Month DD, YYYY access date:
     var accessDate = months[currentDate.getMonth()] + ' ' + currentDate.getDate() + ', ' + currentDate.getFullYear();
-    // URL-based metadata
-    var accessURL = location.href;
-    // Small array of the volume and issue (aka, series) numbers
-    var accessSeries = [];
     // Collect all of the DC. metadata elements, and put them into a reusable object
     // Set up creator as an array to handle multiple authors
     var DC = { creator: [] };
