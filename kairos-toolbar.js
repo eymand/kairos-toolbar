@@ -32,57 +32,35 @@
     // Basic variables
     var DC = { creator: [] }; // Object to hold Dublin Core metadata
 
-    // Pack all of the metadata from above into HTML...
-    // ...and insert it into the DOM
-
-    // Also load up the external CSS file for styling the toolbar
-
-    // Check for the presence of <meta name="viewport"> tag; if it doesn't exist, assume we're
-    // dealing with a non-responsive webtext...load a class that loads CSS for an old-school-style
-    // toolbar
-
-    // Otherwise, looks like it should be responsive...
-
-    // Check the viewport size and a CSS content: property to determine initial state, and
-    // check that against the default or user-supplied breakpoints to determine the class to
-    // load...
-
-    // Whenever the window is resized (TODO: confirm that that event fires on an orientation
-    // change), check the viewport size and CSS content: property again, swapping out classes
-    // as needed...
-
-    // Functionality goes here for opening, expanding(?), and closing the toolbar; depending on
-    // the design, this functionality may be class-dependent (e.g., a small-screen toolbar that
-    // appears to slide up from the bottom of the screen; a wide-screen toolbar that slides out
-    // across the screen like the current one...
-
-
-
-    // keep it chainable
-    return this;
-
-    // functions
+    // Toolbar functions
 
     // Function to process the current date of access
-    function processAccessDate() {
+    function processAccessDate(style) {
       var currentDate = new Date(), // Grab the current date
-      months = [ // Array of months; getMonth() will return these values
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
+      months = [ // Array of month/abbrev arrays; getMonth() will return these values
+        ['January','Jan'],
+        ['February','Feb'],
+        ['March','Mar'],
+        ['April','Apr'],
+        ['May','May'],
+        ['June','June'],
+        ['July','July'],
+        ['August','Aug'],
+        ['September','Sept'],
+        ['October','Oct'],
+        ['November','Nov'],
+        ['December','Dec']
       ];
-      return months[currentDate.getMonth()] +
-             ' ' + currentDate.getDate() +
-             ', ' + currentDate.getFullYear();
+      if (style=="mla") {
+        return currentDate.getDate() +
+               ' ' + months[currentDate.getMonth()][1] +
+               '. ' + currentDate.getFullYear();
+      }
+      if (style=="apa") {
+        return months[currentDate.getMonth()][0] +
+               ' ' + currentDate.getDate() +
+               ', ' + currentDate.getFullYear();
+      }
     }
 
 
@@ -90,6 +68,12 @@
     // elements and populating the DC object
     function buildDC() {
       var metaDC = $('meta[name^="DC\."]', 'head'); // look for <meta name="DC... in <head>
+      // Function to extract volume and issue number from DC.series
+      function processSource(source) {
+        source = source.split(".");
+        DC.volume = source[0];
+        DC.issue = source[1];
+      }
       $.each((metaDC), function(index,value){
         var field = $(value).attr('name').substr(3); // look for the name, and chop off the DC. part
         var content = $(value).attr('content');
@@ -101,6 +85,7 @@
           DC[field] = content;
         }
       });
+      processSource(DC.source);
     }
 
     // Function to take DC.creator array and make it a list of authors in
@@ -159,6 +144,58 @@
 
     }
 
+    // Function for building the HTML payload
+    function prepareHTML() {
+      return  "<div id=\"kt-kairos-toolbar\">" +
+              "<dl class=\"kt-citations\">" +
+              "<dt id=\"kt-mla-btn\">MLA</dt>" +
+              "<dd id=\"kt-mla\" class=\"kt-citation\">" +
+              processAuthorList('mla',DC.creator) + ". “" + DC.title + ".” <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy</cite> " + DC.source + " (" + DC.date.substr(0,4) + "). Web. " + processAccessDate('mla') + ". &lt;" + DC.identifier + "&gt;" +
+              "</dd>" +
+              "<dt id=\"kt-apa-btn\">APA</dt>" +
+              "<dd id=\"kt-apa\" class=\"kt-citation\">" +
+              processAuthorList('apa',DC.creator) + " (" + DC.date.substr(0,4) + "). " + DC.title + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
+              "</dd>" +
+              "</dl>" +
+              "</div>";
+    }
+
+    // End of functions
+
+    // STEPS:
+
+    // Build the Dublin Core Metadata from the webtext
+    buildDC();
+
+    // Pack all of the metadata from above into HTML...
+    $('body').html(prepareHTML());
+    // ...and insert it into the DOM
+
+    // Also load up the external CSS file for styling the toolbar
+
+    // Check for the presence of <meta name="viewport"> tag; if it doesn't exist, assume we're
+    // dealing with a non-responsive webtext...load a class that loads CSS for an old-school-style
+    // toolbar
+
+    // Otherwise, looks like it should be responsive...
+
+    // Check the viewport size and a CSS content: property to determine initial state, and
+    // check that against the default or user-supplied breakpoints to determine the class to
+    // load...
+
+    // Whenever the window is resized (TODO: confirm that that event fires on an orientation
+    // change), check the viewport size and CSS content: property again, swapping out classes
+    // as needed...
+
+    // Functionality goes here for opening, expanding(?), and closing the toolbar; depending on
+    // the design, this functionality may be class-dependent (e.g., a small-screen toolbar that
+    // appears to slide up from the bottom of the screen; a wide-screen toolbar that slides out
+    // across the screen like the current one...
+
+
+
+    // keep it chainable
+    return this;
 
   };
 
@@ -167,13 +204,15 @@
     // Check for the existence of the kairos Toolbar options hash;
     // if it doesn't exist, execute w/ defaults
     if (typeof kairosToolbarOptions == "undefined") {
-      $('#test').html("Execute with Defaults");
+      //$('#test').html("Execute with Defaults");
+      $('html').kairosToolbar();
     }
     // Otherwise, execute with custom options; note that this requires
     // setting up the custom options above where the toolbar script loads
     else
     {
-      $('#test').html("Execute with Customizations");
+      //$('#test').html("Execute with Customizations");
+      $('html').kairosToolbar();
     }
   });
 
