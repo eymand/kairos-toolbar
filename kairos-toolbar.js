@@ -89,6 +89,24 @@
 
     // keep it chainable
     return this;
+
+    // functions
+
+    function processAuthor(style,name) {
+      var name = name.split(" "); // break name up into an array
+      var lastname = name.pop(); // right now, Jr., III, etc. will break this
+      if (style == "mla") {
+        return lastname + ", " + name.join(" ");
+      }
+      if (style == "apa") {
+        return lastname + ", " + name.map(processInitials).join(" ");
+      }
+      function processInitials(name) {
+        return name.substr(0,1) + ".";
+      }
+    }
+
+
   };
 
   // DOM Ready event to fire toolbar
