@@ -92,8 +92,43 @@
 
     // functions
 
+
+    // authors = ["Karl Stolley", "Amy Ferdinandt Stolley", "Homer J. Simpson"];
+    function processAuthorList(style,names) {
+      var processedNames = []
+
+      if (style == "mla") {
+        var andStyle = "and";
+        processedNames[0] = processAuthor(style,names[0]);
+        for(var i = 1; i < names.length; i++) {
+          processedNames.push(names[i]);
+        }
+      }
+
+      if (style == "apa") {
+        var andStyle = "&amp;";
+        for(var i = 0; i < names.length; i++) {
+          processedNames.push(processAuthor(style,names[i]))
+        }
+      }
+
+      return joinNames(processedNames,andStyle);
+
+      function joinNames(namelist,andStyle) {
+        // List of three or more authors
+        if (namelist.length > 2) {
+          var lastAuthor = namelist.pop();
+          return namelist.join(", ") + ", " + andStyle + " " + lastAuthor;
+        }
+        // List of two or fewer authors
+        else {
+          return namelist.join(" " + andStyle + " ");
+        }
+      }
+    }
+
     function processAuthor(style,name) {
-      var name = name.split(" "); // break name up into an array
+      var name = name.split(" "); // Separate name parts into an array
       var lastname = name.pop(); // right now, Jr., III, etc. will break this
       if (style == "mla") {
         return lastname + ", " + name.join(" ");
