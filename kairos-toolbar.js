@@ -35,9 +35,21 @@
     // Small array of the volume and issue (aka, series) numbers
     var accessSeries = [];
     // Collect all of the DC. metadata elements, and put them into a reusable object
-    var DC = {};
+    // Set up creator as an array to handle multiple authors
+    var DC = { creator: [] };
     // Logic for looping through the <meta name="DC.attribute" content="value"> elements; watch
     // for elements that can appear multiple times, like DC.creator
+    var metaDC = $('meta[name^="DC\."]', 'head');
+    $.each((metaDC), function(index,value){
+      var field = $(value).attr('name').substr(3);
+      var content = $(value).attr('content');
+      if (field == 'creator') {
+        DC.creator.push(content);
+      }
+      else {
+        DC[field] = content;
+      }
+    });
     // Tack on the in-house APA.author element, too
 
     // Pack all of the metadata from above into HTML...
