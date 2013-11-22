@@ -30,24 +30,7 @@
   $.fn.kairosToolbar = function(options) {
 
     // Basic variables
-    var currentDate = new Date(), // Grab the current date
-        months = [ // Array of months; getMonth() will return these values
-          'January',
-          'February',
-          'March',
-          'April',
-          'May',
-          'June',
-          'July',
-          'August',
-          'September',
-          'October',
-          'November',
-          'December'
-        ],
-        accessDate = months[currentDate.getMonth()] + ' ' + currentDate.getDate() + ', ' + currentDate.getFullYear(),
-        DC = { creator: [] };
-
+    var DC = { creator: [] }; // Object to hold Dublin Core metadata
 
     // Pack all of the metadata from above into HTML...
     // ...and insert it into the DOM
@@ -79,6 +62,29 @@
     return this;
 
     // functions
+
+    // Function to process the current date of access
+    function processAccessDate() {
+      var currentDate = new Date(), // Grab the current date
+      months = [ // Array of months; getMonth() will return these values
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+      ];
+      return months[currentDate.getMonth()] +
+             ' ' + currentDate.getDate() +
+             ', ' + currentDate.getFullYear();
+    }
+
 
     // Function for reading through the <meta name="DC.attribute" content="value">
     // elements and populating the DC object
