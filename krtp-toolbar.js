@@ -1,4 +1,28 @@
-(function($) {
+/* ===========================================================
+ * krtp-toolbar.js v0.1
+ * ===========================================================
+ *
+ * Created by Karl Stolley
+ * http://karlstolley.com/ - @karlstolley
+ *
+ * Copyright 2013 Kairos: A Journal of Rhetoric, Technology,
+ * and Pedagogy.
+ * http://kairos.technorhetoric.net
+ *
+ * A small jQuery plugin that takes Dublin Core metadata and
+ * a few other bits of data and makes citation information
+ * available, along with Kairos branding, on webtexts
+ * published by Kairos.
+ * https://github.com/karlstolley/kairos-toolbar
+ *
+ * ========================================================== */
+
+
+// The opening semicolon is a safety mechanism to protect against
+// shoddy plugins and other JavaScript cruft that may not correctly
+// terminate. See this little Stack Overflow exchange the topic:
+// http://stackoverflow.com/questions/7365172/semicolon-before-self-invoking-function
+;(function($) {
   $.fn.kairosToolbar = function(options) {
     // Grab the current date
     var currentDate = new Date();
