@@ -91,10 +91,20 @@
     return this;
   };
 
+  // DOM Ready event to fire toolbar
+  $(function() {
+    // Check for the existence of the kairos Toolbar options hash;
+    // if it doesn't exist, execute w/ defaults
+    if (typeof kairosToolbarOptions == "undefined") {
+      $('#test').html("Execute with Defaults");
+    }
+    // Otherwise, execute with custom options; note that this requires
+    // setting up the custom options above where the toolbar script loads
+    else
+    {
+      $('#test').html("Execute with Customizations");
+    }
+  });
+
 }(jQuery));
 
-// Check for the existence of the kairos Toolbar options hash;
-// if it doesn't exist, execute w/ defaults
-
-// Otherwise, execute with custom options; note that this requires
-// setting up the custom options above where the toolbar script loads
