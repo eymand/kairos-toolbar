@@ -96,7 +96,7 @@
       function processAuthor(style,name) {
         var name = name.split(" "); // Separate name parts into an array
         var lastname = name.pop(); // right now, Jr., III, etc. will break this
-        if (style == "mla") {
+        if ((style == "mla") || (style == "kairos")) {
           return lastname + ", " + name.join(" ");
         }
         if (style == "apa") {
@@ -116,7 +116,9 @@
         }
         // List of two or fewer authors
         else {
-          return namelist.join(" " + andStyle + " ");
+          if (andStyle == "&amp;") { andStyle = ", &amp;"; }
+          else { andStyle = " " + andStyle; }
+          return namelist.join(andStyle + " ");
         }
       }
 
@@ -132,8 +134,8 @@
         }
       }
 
-      if (style == "apa") {
-        var andStyle = ", &amp;"; // final author separated by ', &' in APA
+      if ((style == "apa") || (style=="kairos")) {
+        var andStyle = "&amp;"; // final author separated by ', &' in APA
         // All authors become, Lastname, F. M. in APA style
         for(var i = 0; i < names.length; i++) {
           processedNames.push(processAuthor(style,names[i]))
@@ -148,6 +150,10 @@
     function prepareHTML() {
       return  "<div id=\"kt-kairos-toolbar\">" +
               "<dl class=\"kt-citations\">" +
+              "<dt id=\"kt-kairos-btn\">Kairos</dt>" +
+              "<dd id=\"kt-kairos\" class=\"kt-citation\">" +
+              processAuthorList('kairos',DC.creator) + " (" + DC.date.substr(0,4) + "). " + DC.title + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
+              "</dd>" +
               "<dt id=\"kt-mla-btn\">MLA</dt>" +
               "<dd id=\"kt-mla\" class=\"kt-citation\">" +
               processAuthorList('mla',DC.creator) + ". “" + DC.title + ".” <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy</cite> " + DC.source + " (" + DC.date.substr(0,4) + "). Web. " + processAccessDate('mla') + ". &lt;" + DC.identifier + "&gt;" +
