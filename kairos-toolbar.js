@@ -146,13 +146,22 @@
 
     }
 
+    function processTitle(title) {
+      title = title.split(": "); // in the case of a title with a colon; returns an array regardless
+      for (var i = 0; i < title.length; i++) {
+        title[i] = title[i].toLowerCase();
+        title[i] = title[i].charAt(0).toUpperCase() + title[i].substr(1);
+      }
+      return title = title.join(": ");
+    }
+
     // Function for building the HTML payload
     function prepareHTML() {
       return  "<div id=\"kt-kairos-toolbar\">" +
               "<dl class=\"kt-citations\">" +
               "<dt id=\"kt-kairos-btn\">Kairos</dt>" +
               "<dd id=\"kt-kairos\" class=\"kt-citation\">" +
-              processAuthorList('kairos',DC.creator) + " (" + DC.date.substr(0,4) + "). " + DC.title + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
+              processAuthorList('kairos',DC.creator) + " (" + DC.date.substr(0,4) + "). " + processTitle(DC.title) + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
               "</dd>" +
               "<dt id=\"kt-mla-btn\">MLA</dt>" +
               "<dd id=\"kt-mla\" class=\"kt-citation\">" +
@@ -160,7 +169,7 @@
               "</dd>" +
               "<dt id=\"kt-apa-btn\">APA</dt>" +
               "<dd id=\"kt-apa\" class=\"kt-citation\">" +
-              processAuthorList('apa',DC.creator) + " (" + DC.date.substr(0,4) + "). " + DC.title + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
+              processAuthorList('apa',DC.creator) + " (" + DC.date.substr(0,4) + "). " + processTitle(DC.title) + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
               "</dd>" +
               "</dl>" +
               "</div>";
