@@ -133,7 +133,7 @@
       }
 
       if (style == "apa") {
-        var andStyle = "&amp;"; // final author separated by '&' in APA
+        var andStyle = ", &amp;"; // final author separated by ', &' in APA
         // All authors become, Lastname, F. M. in APA style
         for(var i = 0; i < names.length; i++) {
           processedNames.push(processAuthor(style,names[i]))
