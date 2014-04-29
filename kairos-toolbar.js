@@ -22,10 +22,42 @@
 // shoddy plugins and other JavaScript cruft that may not correctly
 // terminate. See this little Stack Overflow exchange the topic:
 // http://stackoverflow.com/questions/7365172/semicolon-before-self-invoking-function
+;
+// Conditionally load jQuery if an author hasn't done so already; this will pull from the
+// Google CDN, so that means A) no extra stress on the Kairos server and B) increased
+// likelihood that a user will already have a cached copy of jQuery
+// Based on a technique by @benbalter https://gist.github.com/gists/902090/
+var kairosToolbarMaybeLoadJq, kairosToolbarInit;
+
+kairosToolbarMaybeLoadJq = function() {
+  var jQ;
+  if (!(typeof jQuery !== "undefined" && jQuery !== null)) {
+    jQ = document.createElement('script');
+    jQ.type = 'text/javascript';
+    jQ.onload = jQ.onreadystatechange = kairosToolbarInit;
+    // This will load the latest jQuery 1.x.x; it should be
+    // possible to load a different/specific version from the
+    // kairosToolbarOptions hash -- although that will require
+    // testing the toolbar itself on many different versions
+    jQ.src = '//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js';
+    return document.body.appendChild(jQ);
+  }
+  else {
+    return kairosToolbarInit();
+  }
+};
+
+if (window.addEventListener) {
+  window.addEventListener('load', kairosToolbarMaybeLoadJq, false);
+} else if (window.attachEvent) {
+  window.attachEvent('onload', kairosToolbarMaybeLoadJq);
+}
+
 // Use jQuery.noConflict() to avoid collisions with other JavaScript
 // libraries that may use the $ alias; see
 // http://api.jquery.com/jQuery.noConflict/
-;jQuery.noConflict();
+kairosToolbarInit = function() {
+jQuery.noConflict();
 (function($) {
   $.fn.kairosToolbar = function(options) {
 
@@ -232,4 +264,5 @@
   });
 
 }(jQuery));
+};
 
