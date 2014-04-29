@@ -223,7 +223,9 @@ kairosToolbarInit = function() {
       // Check for the presence of <meta name="viewport"> tag; if it doesn't exist, assume we're
       // dealing with a non-responsive webtext...load a class that loads CSS for an old-school-style
       // toolbar
-
+      if($('meta[name="viewport"]', 'head')) {
+        $('html').addClass('kairosToolbarRWD');
+      }
       // Otherwise, looks like it should be responsive...
 
       // Check the viewport size and a CSS content: property to determine initial state, and
