@@ -187,6 +187,11 @@ kairosToolbarInit = function() {
         return title = title.join(": ");
       }
 
+      function processIssueContents() {
+        var num = DC.source;
+        return '<p><a href="http://kairos.technorhetoric.net/'+num+'/">Issue '+num+' Contents</a></p>';
+      }
+
       // Function for building the HTML payload
       function prepareHTML() {
         return  "<div id=\"kt-kairos-toolbar\">" +
@@ -204,6 +209,7 @@ kairosToolbarInit = function() {
                 processAuthorList('apa',DC.creator) + " (" + DC.date.substr(0,4) + "). " + processTitle(DC.title) + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
                 "</dd>" +
                 "</dl>" +
+                processIssueContents() +
                 "</div>";
       }
 
