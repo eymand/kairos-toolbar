@@ -88,7 +88,7 @@ kairosToolbarInit = function() {
                  ' ' + months[currentDate.getMonth()][1] +
                  '. ' + currentDate.getFullYear();
         }
-        if (style=="apa") {
+        if (style=="kairos") {
           return months[currentDate.getMonth()][0] +
                  ' ' + currentDate.getDate() +
                  ', ' + currentDate.getFullYear();
@@ -198,7 +198,7 @@ kairosToolbarInit = function() {
                 "<dl class=\"kt-citations\">" +
                 "<dt id=\"kt-kairos-btn\">Kairos</dt>" +
                 "<dd id=\"kt-kairos\" class=\"kt-citation\">" +
-                processAuthorList('kairos',DC.creator) + " (" + DC.date.substr(0,4) + "). " + processTitle(DC.title) + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
+                processAuthorList('kairos',DC.creator) + " (" + DC.date.substr(0,4) + "). " + processTitle(DC.title) + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved " + processAccessDate('kairos') + ", from " + DC.identifier +
                 "</dd>" +
                 "<dt id=\"kt-mla-btn\">MLA</dt>" +
                 "<dd id=\"kt-mla\" class=\"kt-citation\">" +
