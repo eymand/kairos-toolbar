@@ -99,7 +99,7 @@ kairosToolbarInit = function() {
       // Function for reading through the <meta name="DC.attribute" content="value">
       // elements and populating the DC object
       function buildDC() {
-        var metaDC = $('meta[name^="DC\."]', 'head'); // look for <meta name="DC... in <head>
+        var metaDC = $('meta[name^="DC"]', 'head'); // look for <meta name="DC... in <head>
         // Function to extract volume and issue number from DC.series
         function processSource(source) {
           source = source.split(".");
@@ -107,7 +107,8 @@ kairosToolbarInit = function() {
           DC.issue = source[1];
         }
         $.each((metaDC), function(index,value){
-          var field = $(value).attr('name').substr(3); // look for the name, and chop off the DC. part
+          var field = $(value).attr('name');
+          field = field.substr(field.indexOf('\.') + 1);// Look for & remove DC. or DCTERMS.
           var content = $(value).attr('content');
           // Because webtexts can have multiple creators (authors), watch for that
           if (field == 'creator') {
