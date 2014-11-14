@@ -11,3 +11,9 @@ This is a complete rewrite of the old Toolbar to reflect better practices in Jav
 
 ### Notes to Self
 * Be sure to look at list of assets at http://kairos.technorhetoric.net/toolbar/ -- all will need to be replaced, but for the sake of preservation, they should be downloaded and added to the `master` branch of this repository.
+
+### To Do
+* The `kairosToolbarOptions` object should allow:
+  1. Custom Kairos/APA-style titles (e.g., for titles that include proper nouns)
+  2. The ability to disable to the toolbar’s display (e.g., for *inner* pages that have full-screen media)
+* Somehow document that names like Marquis de Sade have to be presented in the Dublin Core metadata with a nonbreaking space, e.g., `<meta name="DCTERMS.creator" content="Marquis de&nbsp;Sade">`. Not sure how else the DC metadata is used, or what kind of problems that might cause other parsers. JavaScript is cool with it, though.
