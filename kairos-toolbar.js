@@ -222,7 +222,7 @@ kairosToolbarInit = function() {
       buildDC();
 
       // Pack all of the metadata from above into HTML...
-      $('body').html(prepareHTML());
+      $('body').append(prepareHTML());
       // ...and insert it into the DOM
 
       // Also load up the external CSS file for styling the toolbar
