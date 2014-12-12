@@ -167,8 +167,14 @@ kairosToolbarInit = function() {
             return lastname + ", " + name.join(" ");
           }
           if (style == "apa") {
-            // Older IE (before v. 9) will choke on .map...
-            return lastname + ", " + name.map(processInitials).join(" ");
+            // Older IE (before v. 9) will choke on .map, e.g.,
+            // name.map(processInitials).join(" ")
+            // so use the jQuery $.map instead
+            // (see http://api.jquery.com/jquery.map/
+            name = $.map(name, function(n) {
+              return processInitials(n);
+            });
+            return lastname + ", " + name.join(" ");
           }
           function processInitials(name) {
             return name.substr(0,1) + ".";
