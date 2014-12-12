@@ -62,7 +62,17 @@ kairosToolbarInit = function() {
     $.fn.kairosToolbar = function(options) {
 
       // Basic variables
-      var DC = { creator: [] }; // Object to hold Dublin Core metadata
+      // Object to hold Dublin Core metadata;
+      // Properties here hold metadata processed below,
+      // TODO: Enable these to be overridden by the options hash
+      var DC = {
+        creator: [], // Hold one or more creators (separate in Dublin core)
+        authorList: {mla: "", kairos: "", apa: ""}, // Formatted author lists
+        accessDate: {mla: "", kairos: ""}, // placeholder for different access-date styles
+        volume: "",
+        issue: "",
+        publicationYear: ""
+      };
 
       // Toolbar functions
 
