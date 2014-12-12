@@ -60,7 +60,9 @@ kairosToolbarInit = function() {
   jQuery.noConflict();
   (function($) {
     $.fn.kairosToolbar = function(options) {
-
+      if (typeof options == "undefined") {
+        var options = {}; // empty options object as a sanity check
+      }
       // Basic variables
       // Object to hold Dublin Core metadata;
       // Properties here hold metadata processed below,
@@ -69,6 +71,7 @@ kairosToolbarInit = function() {
         creator: [], // Hold one or more creators (separate in Dublin core)
         authorList: {mla: "", kairos: "", apa: ""}, // Formatted author lists
         accessDate: {mla: "", kairos: ""}, // placeholder for different access-date styles
+        formattedTitle: {mla: "", kairos: "", apa: ""}, // raw or Sentence case titles
         volume: "",
         issue: "",
         publicationYear: ""
@@ -129,6 +132,12 @@ kairosToolbarInit = function() {
           }
         });
         processSource(DC.source);
+        DC.formattedTitle = {
+          // Use titles from options; may contain HTML, e.g., "Awesome stuff in <i>Star Wars</i>"
+          mla: options.mlaTitle || DC.title,
+          kairos: options.kairosTitle || processTitle(DC.title),
+          apa: options.apaTitle || processTitle(DC.title)
+        }
       }
 
       // Function to take DC.creator array and make it a list of authors in
@@ -204,15 +213,15 @@ kairosToolbarInit = function() {
                 "<dl class=\"kt-citations\">" +
                 "<dt id=\"kt-kairos-btn\">Kairos</dt>" +
                 "<dd id=\"kt-kairos\" class=\"kt-citation\">" +
-                processAuthorList('kairos',DC.creator) + " (" + DC.date.substr(0,4) + "). " + processTitle(DC.title) + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved " + processAccessDate('kairos') + ", from " + DC.identifier +
+                processAuthorList('kairos',DC.creator) + " (" + DC.date.substr(0,4) + "). " + DC.formattedTitle.kairos + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved " + processAccessDate('kairos') + ", from " + DC.identifier +
                 "</dd>" +
                 "<dt id=\"kt-mla-btn\">MLA</dt>" +
                 "<dd id=\"kt-mla\" class=\"kt-citation\">" +
-                processAuthorList('mla',DC.creator) + ". “" + DC.title + ".” <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy</cite> " + DC.source + " (" + DC.date.substr(0,4) + "). Web. " + processAccessDate('mla') + ". &lt;" + DC.identifier + "&gt;" +
+                processAuthorList('mla',DC.creator) + ". “" + DC.formattedTitle.mla + ".” <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy</cite> " + DC.source + " (" + DC.date.substr(0,4) + "). Web. " + processAccessDate('mla') + ". &lt;" + DC.identifier + "&gt;" +
                 "</dd>" +
                 "<dt id=\"kt-apa-btn\">APA</dt>" +
                 "<dd id=\"kt-apa\" class=\"kt-citation\">" +
-                processAuthorList('apa',DC.creator) + " (" + DC.date.substr(0,4) + "). " + processTitle(DC.title) + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
+                processAuthorList('apa',DC.creator) + " (" + DC.date.substr(0,4) + "). " + DC.formattedTitle.apa + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
                 "</dd>" +
                 "</dl>" +
                 "<p><a href=\"http://kairos.technorhetoric.net/"+DC.source+"/\">Issue "+DC.source+" Contents</a></p>" +
@@ -273,7 +282,7 @@ kairosToolbarInit = function() {
       else
       {
         //$('#test').html("Execute with Customizations");
-        $('html').kairosToolbar();
+        $('html').kairosToolbar(kairosToolbarOptions);
       }
     });
 
