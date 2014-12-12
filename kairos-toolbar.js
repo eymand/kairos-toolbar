@@ -114,6 +114,9 @@ kairosToolbarInit = function() {
       function buildDC() {
         var metaDC = $('meta[name^="DC"]', 'head'); // look for <meta name="DC... in <head>
         // Function to extract volume and issue number from DC.series
+        function processYear(date) {
+          DC.publicationYear = DC.date.substr(0,4);
+        }
         function processSource(source) {
           source = source.split(".");
           DC.volume = source[0];
@@ -132,11 +135,38 @@ kairosToolbarInit = function() {
           }
         });
         processSource(DC.source);
-        DC.formattedTitle = {
-          // Use titles from options; may contain HTML, e.g., "Awesome stuff in <i>Star Wars</i>"
-          mla: options.mlaTitle || DC.title,
-          kairos: options.kairosTitle || processTitle(DC.title),
-          apa: options.apaTitle || processTitle(DC.title)
+        processYear(DC.date);
+        // Handle custom author lists
+        if (options.authorList) {
+          DC.authorList = {
+            kairos: options.authorList.kairos || processAuthorList('kairos',DC.creator),
+            apa: options.authorList.apa || processAuthorList('apa',DC.creator),
+            mla: options.authorList.mla || processAuthorList('mla',DC.creator)
+          }
+        }
+        else {
+          DC.authorList = {
+            kairos: processAuthorList('kairos',DC.creator),
+            apa: processAuthorList('apa',DC.creator),
+            mla: processAuthorList('mla',DC.creator)
+          }
+        }
+        // Handle custom title formats
+        if (options.formattedTitle) {
+          DC.formattedTitle = {
+            // Use titles from options; may contain HTML, e.g., "Awesome stuff in <i>Star Wars</i>"
+            kairos: options.formattedTitle.kairos || processTitle(DC.title),
+            apa: options.formattedTitle.apa || processTitle(DC.title),
+            mla: options.formattedTitle.mla || DC.title
+          }
+        }
+        else {
+          DC.formattedTitle = {
+            // Use titles from options; may contain HTML, e.g., "Awesome stuff in <i>Star Wars</i>"
+            kairos: processTitle(DC.title),
+            apa: processTitle(DC.title),
+            mla: DC.title
+          }
         }
       }
 
@@ -213,15 +243,15 @@ kairosToolbarInit = function() {
                 "<dl class=\"kt-citations\">" +
                 "<dt id=\"kt-kairos-btn\">Kairos</dt>" +
                 "<dd id=\"kt-kairos\" class=\"kt-citation\">" +
-                processAuthorList('kairos',DC.creator) + " (" + DC.date.substr(0,4) + "). " + DC.formattedTitle.kairos + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved " + processAccessDate('kairos') + ", from " + DC.identifier +
+                DC.authorList.kairos + " (" + DC.publicationYear + "). " + DC.formattedTitle.kairos + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved " + processAccessDate('kairos') + ", from " + DC.identifier +
                 "</dd>" +
                 "<dt id=\"kt-mla-btn\">MLA</dt>" +
                 "<dd id=\"kt-mla\" class=\"kt-citation\">" +
-                processAuthorList('mla',DC.creator) + ". “" + DC.formattedTitle.mla + ".” <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy</cite> " + DC.source + " (" + DC.date.substr(0,4) + "). Web. " + processAccessDate('mla') + ". &lt;" + DC.identifier + "&gt;" +
+                DC.authorList.mla + ". “" + DC.formattedTitle.mla + ".” <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy</cite> " + DC.source + " (" + DC.publicationYear + "). Web. " + processAccessDate('mla') + ". &lt;" + DC.identifier + "&gt;" +
                 "</dd>" +
                 "<dt id=\"kt-apa-btn\">APA</dt>" +
                 "<dd id=\"kt-apa\" class=\"kt-citation\">" +
-                processAuthorList('apa',DC.creator) + " (" + DC.date.substr(0,4) + "). " + DC.formattedTitle.apa + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
+                DC.authorList.apa + " (" + DC.publicationYear + "). " + DC.formattedTitle.apa + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
                 "</dd>" +
                 "</dl>" +
                 "<p><a href=\"http://kairos.technorhetoric.net/"+DC.source+"/\">Issue "+DC.source+" Contents</a></p>" +
