@@ -136,6 +136,9 @@ kairosToolbarInit = function() {
         });
         processSource(DC.source);
         processYear(DC.date);
+        processTitle(DC.title);
+
+
         // Handle custom author lists
         if (options.authorList) {
           DC.authorList = {
@@ -149,23 +152,6 @@ kairosToolbarInit = function() {
             kairos: processAuthorList('kairos',DC.creator),
             apa: processAuthorList('apa',DC.creator),
             mla: processAuthorList('mla',DC.creator)
-          }
-        }
-        // Handle custom title formats
-        if (options.formattedTitle) {
-          DC.formattedTitle = {
-            // Use titles from options; may contain HTML, e.g., "Awesome stuff in <i>Star Wars</i>"
-            kairos: options.formattedTitle.kairos || processTitle(DC.title),
-            apa: options.formattedTitle.apa || processTitle(DC.title),
-            mla: options.formattedTitle.mla || DC.title
-          }
-        }
-        else {
-          DC.formattedTitle = {
-            // Use titles from options; may contain HTML, e.g., "Awesome stuff in <i>Star Wars</i>"
-            kairos: processTitle(DC.title),
-            apa: processTitle(DC.title),
-            mla: DC.title
           }
         }
       }
@@ -229,12 +215,32 @@ kairosToolbarInit = function() {
       }
 
       function processTitle(title) {
-        title = title.split(": "); // in the case of a title with a colon; returns an array regardless
-        for (var i = 0; i < title.length; i++) {
-          title[i] = title[i].toLowerCase();
-          title[i] = title[i].charAt(0).toUpperCase() + title[i].substr(1);
+      // Handle custom title formats
+        if (options.formattedTitle) {
+          DC.formattedTitle = {
+            // Use titles from options; may contain HTML, e.g., "Awesome stuff in <i>Star Wars</i>"
+            kairos: options.formattedTitle.kairos || sentenceCase(DC.title),
+            apa: options.formattedTitle.apa || sentenceCase(DC.title),
+            mla: options.formattedTitle.mla || DC.title
+          }
         }
-        return title = title.join(": ");
+        else {
+          DC.formattedTitle = {
+            // Use titles from options; may contain HTML, e.g., "Awesome stuff in <i>Star Wars</i>"
+            kairos: sentenceCase(DC.title),
+            apa: sentenceCase(DC.title),
+            mla: DC.title
+          }
+        }
+
+        function sentenceCase(title) {
+          title = title.split(": "); // in the case of a title with a colon; returns an array regardless
+          for (var i = 0; i < title.length; i++) {
+            title[i] = title[i].toLowerCase();
+            title[i] = title[i].charAt(0).toUpperCase() + title[i].substr(1);
+          }
+          return title = title.join(": ");
+        }
       }
 
       // Function for building the HTML payload
