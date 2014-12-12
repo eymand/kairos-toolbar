@@ -287,12 +287,11 @@ kairosToolbarInit = function() {
       // Also load up the external CSS file for styling the toolbar
       $('head').append('<link rel="stylesheet" type="text/css" href="../kairos-toolbar-styles.css" />');
       // Check for the presence of <meta name="viewport"> tag; if it doesn't exist, assume we're
-      // dealing with a non-responsive webtext...load a class that loads CSS for an old-school-style
-      // toolbar
+      // dealing with a non-responsive webtext. Otherwise, load up a responsive CSS prefix on
+      // <html>
       if($('meta[name="viewport"]', 'head').length > 0) {
         $('html').addClass('kt-rwd');
       }
-      // Otherwise, looks like it should be responsive...
 
       // Check the viewport size and a CSS content: property to determine initial state, and
       // check that against the default or user-supplied breakpoints to determine the class to
