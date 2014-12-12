@@ -137,29 +137,29 @@ kairosToolbarInit = function() {
         processSource(DC.source);
         processYear(DC.date);
         processTitle(DC.title);
+        processAuthorList(DC.creator);
+      }
 
+      // Function to take DC.creator array and make it a list of authors in
+      // proper Kairos, APA, and styles
+      function processAuthorList(names) {
+        var processedNames = [];
 
         // Handle custom author lists
         if (options.authorList) {
           DC.authorList = {
-            kairos: options.authorList.kairos || processAuthorList('kairos',DC.creator),
-            apa: options.authorList.apa || processAuthorList('apa',DC.creator),
-            mla: options.authorList.mla || processAuthorList('mla',DC.creator)
+            kairos: options.authorList.kairos || authorList('kairos',names),
+            apa: options.authorList.apa || authorList('apa',names),
+            mla: options.authorList.mla || authorList('mla',names)
           }
         }
         else {
           DC.authorList = {
-            kairos: processAuthorList('kairos',DC.creator),
-            apa: processAuthorList('apa',DC.creator),
-            mla: processAuthorList('mla',DC.creator)
+            kairos: authorList('kairos',names),
+            apa: authorList('apa',names),
+            mla: authorList('mla',names)
           }
         }
-      }
-
-      // Function to take DC.creator array and make it a list of authors in
-      // proper MLA or APA style
-      function processAuthorList(style,names) {
-        var processedNames = []
 
         function processAuthor(style,name) {
           var name = name.split(" "); // Separate name parts into an array
@@ -192,25 +192,27 @@ kairosToolbarInit = function() {
 
         // Let's get down to business, having written those inner functions:
 
-        if (style == "mla") {
-          var andStyle = "and"; // final author separated by 'and' in MLA
-          // Only the first author becomes Lastname, Firstname in MLA Style
-          processedNames[0] = processAuthor(style,names[0]);
-          // Push remainder of names into processedNames array as-is
-          for(var i = 1; i < names.length; i++) {
-            processedNames.push(names[i]);
+        function authorList(style,names) {
+          if (style == "mla") {
+            var andStyle = "and"; // final author separated by 'and' in MLA
+            // Only the first author becomes Lastname, Firstname in MLA Style
+            processedNames[0] = processAuthor(style,names[0]);
+            // Push remainder of names into processedNames array as-is
+            for(var i = 1; i < names.length; i++) {
+              processedNames.push(names[i]);
+            }
           }
-        }
 
-        if ((style == "apa") || (style=="kairos")) {
-          var andStyle = "&amp;"; // final author separated by ', &' in APA
-          // All authors become, Lastname, F. M. in APA style
-          for(var i = 0; i < names.length; i++) {
-            processedNames.push(processAuthor(style,names[i]))
+          if ((style == "apa") || (style=="kairos")) {
+            var andStyle = "&amp;"; // final author separated by ', &' in APA
+            // All authors become, Lastname, F. M. in APA style
+            for(var i = 0; i < names.length; i++) {
+              processedNames.push(processAuthor(style,names[i]))
+            }
           }
-        }
 
-        return joinNames(processedNames,andStyle);
+          return joinNames(processedNames,andStyle);
+        }
 
       }
 
