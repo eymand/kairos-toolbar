@@ -143,7 +143,6 @@ kairosToolbarInit = function() {
       // Function to take DC.creator array and make it a list of authors in
       // proper Kairos, APA, and styles
       function processAuthorList(names) {
-        var processedNames = [];
 
         // Handle custom author lists
         if (options.authorList) {
@@ -193,6 +192,8 @@ kairosToolbarInit = function() {
         // Let's get down to business, having written those inner functions:
 
         function authorList(style,names) {
+          var processedNames = [];
+
           if (style == "mla") {
             var andStyle = "and"; // final author separated by 'and' in MLA
             // Only the first author becomes Lastname, Firstname in MLA Style
