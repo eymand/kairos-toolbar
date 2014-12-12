@@ -283,7 +283,7 @@ kairosToolbarInit = function() {
       // dealing with a non-responsive webtext...load a class that loads CSS for an old-school-style
       // toolbar
       if($('meta[name="viewport"]', 'head')) {
-        $('html').addClass('kairosToolbarRWD');
+        $('html').addClass('kt-rwd');
       }
       // Otherwise, looks like it should be responsive...
 
