@@ -1,0 +1,22 @@
+{
+  "name": "kairos-toolbar",
+  "version": "0.1.0",
+  "description": "The Kairos Toolbar for branding and providing citation information on Kairos webtexts.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/karlstolley/kairos-toolbar.git"
+  },
+  "author": {
+    "name": "Karl Stolley",
+    "email": "karl.stolley@gmail.com",
+    "url": "http://karlstolley.com/"
+  },
+  "homepage": "http://kairos.technorhetoric.net/",
+  "bugs": {
+    "url":"https://github.com/karlstolley/kairos-toolbar/issues",
+    "email":"karl.stolley@gmail.com"
+  },
+  "devdependencies": {
+    "grunt": "~0.4.5"
+  }
+}
