@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     uglify: {
       options: {
-        banner: '/*! <%= pkg.name %> v.<%= pkg.version %> (<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+        banner: '/*! <%= pkg.name %> v.<%= pkg.version %> (<%= grunt.template.today("yyyy-mm-dd") %>) */\n'
       },
       build: {
         src: 'src/<%= pkg.name %>.js',
@@ -18,13 +18,26 @@ module.exports = function(grunt) {
           jQuery: true
         }
       }
+    },
+    sass: {
+      dist: {
+        options: {
+          banner: '/*! <%= pkg.name %> v.<%= pkg.version %> (<%= grunt.template.today("yyyy-mm-dd") %>) */\n',
+          sourcemap: 'none',
+          style: 'expanded'
+        },
+        files: {
+          'dist/kairos-toolbar.css':'src/kairos-toolbar.scss'
+        }
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-jshint');
 
-  grunt.registerTask('default', ['uglify']);
+  grunt.registerTask('default', ['uglify','sass']);
 
 };
 
