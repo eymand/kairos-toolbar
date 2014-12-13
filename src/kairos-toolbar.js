@@ -17,6 +17,7 @@
  *
  * ========================================================== */
 
+/* jshint -W032 */
 
 // The opening semicolon is a safety mechanism to protect against
 // shoddy plugins and other JavaScript cruft that may not correctly
@@ -61,7 +62,7 @@ kairosToolbarInit = function() {
   (function($) {
     $.fn.kairosToolbar = function(options) {
       if (typeof options == "undefined") {
-        var options = {}; // empty options object as a sanity check
+        options = {}; // empty options object as a sanity check
       }
       // Basic variables
       // Object to hold Dublin Core metadata;
@@ -124,7 +125,7 @@ kairosToolbarInit = function() {
         }
         $.each((metaDC), function(index,value){
           var field = $(value).attr('name');
-          field = field.substr(field.indexOf('\.') + 1);// Look for & remove DC. or DCTERMS.
+          field = field.substr(field.indexOf('.') + 1);// Look for & remove DC. or DCTERMS.
           var content = $(value).attr('content');
           // Because webtexts can have multiple creators (authors), watch for that
           if (field == 'creator') {
@@ -150,18 +151,18 @@ kairosToolbarInit = function() {
             kairos: options.authorList.kairos || authorList('kairos',names),
             apa: options.authorList.apa || authorList('apa',names),
             mla: options.authorList.mla || authorList('mla',names)
-          }
+          };
         }
         else {
           DC.authorList = {
             kairos: authorList('kairos',names),
             apa: authorList('apa',names),
             mla: authorList('mla',names)
-          }
+          };
         }
 
         function processAuthor(style,name) {
-          var name = name.split(" "); // Separate name parts into an array
+          name = name.split(" "); // Separate name parts into an array
           var lastname = name.pop(); // right now, Jr., III, etc. will break this
           if ((style == "mla") || (style == "kairos")) {
             return lastname + ", " + name.join(" ");
@@ -198,23 +199,23 @@ kairosToolbarInit = function() {
         // Let's get down to business, having written those inner functions:
 
         function authorList(style,names) {
-          var processedNames = [];
+          var processedNames = [], andStyle, i;
 
           if (style == "mla") {
-            var andStyle = "and"; // final author separated by 'and' in MLA
+            andStyle = "and"; // final author separated by 'and' in MLA
             // Only the first author becomes Lastname, Firstname in MLA Style
             processedNames[0] = processAuthor(style,names[0]);
             // Push remainder of names into processedNames array as-is
-            for(var i = 1; i < names.length; i++) {
+            for(i = 1; i < names.length; i++) {
               processedNames.push(names[i]);
             }
           }
 
           if ((style == "apa") || (style=="kairos")) {
-            var andStyle = "&amp;"; // final author separated by ', &' in APA
+            andStyle = "&amp;"; // final author separated by ', &' in APA
             // All authors become, Lastname, F. M. in APA style
-            for(var i = 0; i < names.length; i++) {
-              processedNames.push(processAuthor(style,names[i]))
+            for(i = 0; i < names.length; i++) {
+              processedNames.push(processAuthor(style,names[i]));
             }
           }
 
@@ -231,7 +232,7 @@ kairosToolbarInit = function() {
             kairos: options.formattedTitle.kairos || sentenceCase(DC.title),
             apa: options.formattedTitle.apa || sentenceCase(DC.title),
             mla: options.formattedTitle.mla || DC.title
-          }
+          };
         }
         else {
           DC.formattedTitle = {
@@ -239,7 +240,7 @@ kairosToolbarInit = function() {
             kairos: sentenceCase(DC.title),
             apa: sentenceCase(DC.title),
             mla: DC.title
-          }
+          };
         }
 
         function sentenceCase(title) {
@@ -248,7 +249,7 @@ kairosToolbarInit = function() {
             title[i] = title[i].toLowerCase();
             title[i] = title[i].charAt(0).toUpperCase() + title[i].substr(1);
           }
-          return title = title.join(": ");
+          return title.join(": ");
         }
       }
 
