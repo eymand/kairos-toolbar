@@ -286,7 +286,7 @@ kairosToolbarInit = function() {
       // ...and insert it into the DOM
 
       // Also load up the external CSS file for styling the toolbar
-      $('head').append('<link rel="stylesheet" type="text/css" href="../src/kairos-toolbar-styles.css" />');
+      $('head').append('<link rel="stylesheet" type="text/css" href="../dist/kairos-toolbar.css" />');
       // Check for the presence of <meta name="viewport"> tag; if it doesn't exist, assume we're
       // dealing with a non-responsive webtext. Otherwise, load up a responsive CSS prefix on
       // <html>
