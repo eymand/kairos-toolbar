@@ -30,11 +30,18 @@ module.exports = function(grunt) {
           'dist/kairos-toolbar.css':'src/kairos-toolbar.scss'
         }
       }
+    },
+    watch: {
+      css: {
+        files: 'src/kairos-toolbar.scss',
+        tasks: ['sass']
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
 
   grunt.registerTask('default', ['uglify','sass']);
