@@ -13,10 +13,11 @@
   },
   "homepage": "http://kairos.technorhetoric.net/",
   "bugs": {
-    "url":"https://github.com/karlstolley/kairos-toolbar/issues",
-    "email":"karl.stolley@gmail.com"
+    "url": "https://github.com/karlstolley/kairos-toolbar/issues",
+    "email": "karl.stolley@gmail.com"
   },
-  "devdependencies": {
-    "grunt": "~0.4.5"
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-uglify": "~0.6.0"
   }
 }
