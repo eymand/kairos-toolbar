@@ -17,12 +17,14 @@
   <meta name="DC.identifier" content="http://kairos.technorhetoric.net/17.3/topoi/neal-et-al/index.html"/>
   <meta name="DC.source" content="17.3" />
   <meta name="DCTERMS.isPartOf" content="Topoi" />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 </head>
 <body>
 <h1 id="test">Nothing is Happening</h1>
 
 <!--Custom toolbar options hash, if any-->
 <script>
+kairosToolbarOptions = { autoload: false };
 /*
 kairosToolbarOptions = {
   formattedTitle: {
@@ -40,5 +42,11 @@ kairosToolbarOptions = {
 </script>
 <!--Last script on the page should be loading the Kairos toolbar-->
 <script src="../src/kairos-toolbar.js"></script>
+<script>
+$(document).ready(function() {
+  $('h1').text('Something is happening');
+  $('html').kairosToolbar(kairosToolbarOptions);
+});
+</script>
 </body>
 </html>
