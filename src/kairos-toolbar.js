@@ -315,23 +315,21 @@ kairosToolbarInit = function() {
     };
 
     // DOM Ready event to fire toolbar
-    if(typeof kairosToolbarOptions !== "undefined" && kairosToolbarOptions.autoload) {
-      $(function() {
-        // Check for the existence of the kairos Toolbar options hash;
-        // if it doesn't exist, execute w/ defaults
-        if (typeof kairosToolbarOptions == "undefined") {
-          //$('#test').html("Execute with Defaults");
-          $('html').kairosToolbar();
-        }
-        // Otherwise, execute with custom options; note that this requires
-        // setting up the custom options above where the toolbar script loads
-        else
-        {
-          //$('#test').html("Execute with Customizations");
-          $('html').kairosToolbar(kairosToolbarOptions);
-        }
-      });
-    }
+    $(function() {
+      // Check for the existence of the kairos Toolbar options hash;
+      // if it doesn't exist, execute w/ defaults
+      if (typeof kairosToolbarOptions == "undefined") {
+        //$('#test').html("Execute with Defaults");
+        $('html').kairosToolbar();
+      }
+      // Otherwise, execute with custom options; note that this requires
+      // setting up the custom options above where the toolbar script loads
+      else
+      {
+        //$('#test').html("Execute with Customizations");
+        $('html').kairosToolbar(kairosToolbarOptions);
+      }
+    });
 
   }(jQuery));
 };
