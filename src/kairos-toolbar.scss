@@ -1,4 +1,35 @@
 body {
   color: red;
+  min-height: 1000px;
   html.kt-rwd & { color: blue; }
+}
+#kt-kairos-toolbar {
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  background: yellow;
+
+
+  #kt-kairos-watermark {
+    width: 100%;
+    background: red;
+    padding: .5em 0;
+  }
+
+  #kt-kairos-content {
+    display: none;
+  }
+  &.expanded #kt-kairos-content {
+    display: block;
+  }
+
+  #kt-kairos-logo {
+    display: block;
+    max-width: 100%;
+    width: 4em;
+    margin: 0 auto;
+  }
 }

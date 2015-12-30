@@ -256,6 +256,11 @@ kairosToolbarInit = function() {
       // Function for building the HTML payload
       function prepareHTML() {
         return  "<div id=\"kt-kairos-toolbar\">" +
+                "<div id=\"kt-kairos-watermark\">" +
+                "<img id=\"kt-kairos-logo\" src=\"../dist/assets/kairos-logo.png\" alt=\"Kairos logo\" />" +
+                "</div>" +
+                "<div id=\"kt-kairos-content\">" +
+                "<cite id=\"kt-kairos-title\">Kairos: A Journal of Rhetoric, Technology, and Pedagogy</cite>" +
                 "<dl class=\"kt-citations\">" +
                 "<dt id=\"kt-kairos-btn\">Kairos</dt>" +
                 "<dd id=\"kt-kairos\" class=\"kt-citation\">" +
@@ -271,7 +276,16 @@ kairosToolbarInit = function() {
                 "</dd>" +
                 "</dl>" +
                 "<p><a href=\"http://kairos.technorhetoric.net/"+DC.source+"/\">Issue "+DC.source+" Contents</a></p>" +
+                "</div>" +
                 "</div>";
+      }
+
+
+      // Register all of the toolbar events
+      function registerToolbarEvents() {
+        $('#kt-kairos-watermark').on('click', function() {
+          $('#kt-kairos-toolbar').toggleClass('expanded');
+        });
       }
 
       // End of functions
@@ -307,6 +321,8 @@ kairosToolbarInit = function() {
       // appears to slide up from the bottom of the screen; a wide-screen toolbar that slides out
       // across the screen like the current one...
 
+      // Listen for events on the toolbar
+      registerToolbarEvents();
 
 
       // keep it chainable
@@ -329,6 +345,7 @@ kairosToolbarInit = function() {
         //$('#test').html("Execute with Customizations");
         $('html').kairosToolbar(kairosToolbarOptions);
       }
+
     });
 
   }(jQuery));
