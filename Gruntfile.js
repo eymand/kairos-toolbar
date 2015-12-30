@@ -36,6 +36,16 @@ module.exports = function(grunt) {
         files: 'src/kairos-toolbar.scss',
         tasks: ['sass']
       }
+    },
+    copy: {
+      main: {
+        files: [{
+          expand: true,
+          cwd: 'src/',
+          src: ['assets/*'],
+          dest: 'dist/'
+        }]
+      }
     }
   });
 
@@ -43,8 +53,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('default', ['uglify','sass']);
+  grunt.registerTask('default', ['uglify','sass', 'copy']);
 
 };
 
