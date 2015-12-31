@@ -1,5 +1,6 @@
 body {
   color: red;
+  background: #333;
   min-height: 1000px;
   html.krtp-rwd & { color: blue; }
 }
@@ -26,6 +27,7 @@ body {
   left: 0;
   bottom: 0;
   z-index: 1000;
+  background: #600;
   opacity: 1;
   -webkit-transition: opacity .5s ease-in;
   -moz-transition: opacity .5s ease-in;
@@ -33,10 +35,10 @@ body {
 
 &.muted {
   opacity: .2;
-  background: none;
 }
 &.expanded {
   opacity: 1;
+  padding-top: .5em;
 }
 
   #krtp-watermark {
@@ -58,40 +60,56 @@ body {
     background: #600;
     color: #FFF;
   }
+}
 
-  #krtp-logo {
-    display: block;
-    max-width: 100%;
-    width: 3em;
-    margin: 0 auto;
-  }
+#krtp-logo {
+  display: block;
+  max-width: 100%;
+  width: 3em;
+  margin: 0 auto;
+}
+#krtp-title {
+  display: block;
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+}
+#krtp-issue {
+  padding: 1em 0 1em 0;
+  text-align: center;
+}
+#krtp-citations {
+  position: relative;
+}
+#krtp-citations dt {
+  position: absolute;
+  padding: .2em;
+  margin: .8em 0 .8em 0;
+  text-align: center;
+  top: 0;
+}
+#krtp-citations dt.active {
+  color: #600;
+  background: #FFF;
+}
+#krtp-kairos-btn {
+  left: 0;
+  width: 10%;
+}
+#krtp-mla-btn {
+  left: 15%;
+  width: 10%;
+}
+#krtp-apa-btn {
+  left: 30%;
+  width: 10%;
+}
 
-  #krtp-citations {
-    position: relative;
-  }
-  #krtp-citations dt {
-    position: absolute;
-    top: 0;
-  }
-  #krtp-btn {
-    left: 0;
-    width: 30%;
-  }
-  #krtp-mla-btn {
-    left: 33%;
-    width: 30%;
-  }
-  #krtp-apa-btn {
-    left: 66%;
-    width: 30%;
-  }
-
-  #krtp-citations dd {
-    display: none;
-  }
-  #krtp-citations dd.active {
-    padding-top: 2em;
-    display: block;
-  }
-
+#krtp-citations dd {
+  display: none;
+}
+#krtp-citations dd.active {
+  text-indent: -2em;
+  padding: 3.5em 0 0 2em;
+  display: block;
 }

@@ -257,13 +257,14 @@ kairosToolbarInit = function() {
       function prepareHTML() {
         return  "<div id=\"krtp-toolbar\">" +
                 "<div id=\"krtp-watermark\">" +
-                "<img id=\"krtp-logo\" src=\"../dist/assets/kairos-logo.png\" alt=\"Kairos logo\" />" +
+                "<img id=\"krtp-logo\" src=\"../dist/assets/kairos-logo-light.png\" alt=\"Kairos logo\" />" +
                 "</div>" +
                 "<div id=\"krtp-content\">" +
-                "<b id=\"krtp-title\">Kairos: A Journal of Rhetoric, Technology,&nbsp;and&nbsp;Pedagogy</b>" +
-                "<p><a href=\"http://kairos.technorhetoric.net/"+DC.source+"/\">Issue "+DC.source+" Contents</a></p>" +
+                "<b id=\"krtp-title\">Kairos: A Journal of Rhetoric, Technology, and&nbsp;Pedagogy</b>" +
+                "<p id=\"krtp-issue\"><a href=\"http://kairos.technorhetoric.net/"+DC.source+"/\">View Issue "+DC.source+" Contents</a></p>" +
+                "<h5>Cite this Webtext. Choose a Style:</h5>" +
                 "<dl id=\"krtp-citations\">" +
-                "<dt id=\"krtp-kairos-btn\">Kairos</dt>" +
+                "<dt id=\"krtp-kairos-btn\" class=\"active\">Kairos</dt>" +
                 "<dd id=\"krtp-kairos\" class=\"krtp-citation active\">" +
                 DC.authorList.kairos + " (" + DC.publicationYear + "). " + DC.formattedTitle.kairos + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved " + processAccessDate('kairos') + ", from " + DC.identifier +
                 "</dd>" +
@@ -317,7 +318,8 @@ kairosToolbarInit = function() {
           $('#krtp-toolbar').toggleClass('expanded');
         });
         $('#krtp-citations dt').on('click', function() {
-          $('#krtp-citations dd').removeClass('active');
+          $('#krtp-citations dd, #krtp-citations dt').removeClass('active');
+          $(this).addClass('active');
           $(this).next('dd').addClass('active');
         });
       }
