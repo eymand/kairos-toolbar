@@ -30,7 +30,7 @@ html {
   left: 0;
   bottom: 0;
   z-index: 1000;
-  background: #600;
+  background: #4066B3; /* Kairos blue */
   opacity: 1;
   -webkit-transition: opacity .5s ease-in;
   -moz-transition: opacity .5s ease-in;
@@ -39,6 +39,7 @@ html {
   &.muted {
     opacity: .7;
   }
+
   &.expanded {
     opacity: 1;
     padding-top: .5em;
@@ -60,7 +61,7 @@ html {
   &.expanded #krtp-content {
     padding: 1em;
     display: block;
-    background: #600;
+    background: #4066B3; /* Kairos blue */
     color: #FFF;
   }
 }
@@ -93,7 +94,7 @@ html {
   top: 0;
 }
 #krtp-citations dt.active {
-  color: #600;
+  color: #4066B3; /* Kairos blue */
   background: #FFF;
 }
 .krtp-btn {
