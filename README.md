@@ -19,7 +19,7 @@ up everything it needs before the toolbar itself even begins to load):
 Paste these lines right before the closing `</body>` tag (not in the `<head>` — let the webtext load
 up everything it needs before the toolbar itself even begins to load):
 
-```
+```html
 <script type="text/javascript">
 //<![CDATA[
 /*
