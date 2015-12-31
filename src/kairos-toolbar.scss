@@ -4,19 +4,33 @@ body {
   html.kt-rwd & { color: blue; }
 }
 #kt-kairos-toolbar {
+  font-size: small;
   margin: 0;
   padding: 0;
   position: fixed;
   width: 100%;
   left: 0;
   bottom: 0;
-  background: yellow;
+  opacity: 1;
+  -webkit-transition: opacity 1s ease-in;
+  -moz-transition: opacity 1s ease-in;
+  transition: opacity 1s ease-in;
 
+&.muted {
+  opacity: .2;
+  background: none;
+}
+&.expanded {
+  opacity: 1;
+}
 
   #kt-kairos-watermark {
     width: 100%;
-    background: red;
     padding: .5em 0;
+  }
+  &.muted #kt-kairos-watermark,
+  &.muted #kt-kairos-content {
+    background: none;
   }
 
   #kt-kairos-content {
@@ -29,7 +43,36 @@ body {
   #kt-kairos-logo {
     display: block;
     max-width: 100%;
-    width: 4em;
+    width: 3em;
     margin: 0 auto;
   }
+
+  #kt-citations {
+    position: relative;
+  }
+  #kt-citations dt {
+    position: absolute;
+    top: 0;
+  }
+  #kt-kairos-btn {
+    left: 0;
+    width: 30%;
+  }
+  #kt-mla-btn {
+    left: 33%;
+    width: 30%;
+  }
+  #kt-apa-btn {
+    left: 66%;
+    width: 30%;
+  }
+
+  #kt-citations dd {
+    display: none;
+  }
+  #kt-citations dd.active {
+    padding-top: 2em;
+    display: block;
+  }
+
 }
