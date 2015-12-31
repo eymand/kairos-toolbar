@@ -139,6 +139,7 @@ kairosToolbarInit = function() {
         processYear(DC.date);
         processTitle(DC.title);
         processAuthorList(DC.creator);
+        processIdentifier(DC.identifier);
       }
 
       // Function to take DC.creator array and make it a list of authors in
@@ -251,6 +252,11 @@ kairosToolbarInit = function() {
           }
           return title.join(": ");
         }
+      }
+
+      // Function to add zero-width spaces to make on-screen URLs break at slashes
+      function processIdentifier(identifier) {
+        DC.identifier = identifier.split("/").join("/&#8203;");
       }
 
       // Function for building the HTML payload
