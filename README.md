@@ -1,22 +1,89 @@
 # The Kairos Toolbar
 
-This is a complete rewrite of the old Toolbar to reflect better practices in JavaScript and contemporary, responsive page design.
+This is the branding and citation toolbar for *Kairos: A Journal of Rhetoric, Technology, and
+Pedagogy*.
 
-### Design Goals
-* Rewrite using jQuery, as a jQuery module and using `jQuery.noConflict()` to avoid collisions with any other JavaScript libraries that webtext authors use that also make use of the jQuery `$` alias. **DONE.**
-* Provide retina-ready @2x graphics for the Kairos logo. **DONE. IMPROVED.** Created an SVG of the logo and used fontello to make a custom icon font.
-* Provide a mechanism/policy that allows webtext authors to bring their own jQuery/version. Offer guidelines to Kairos editors for this. **DONE.**
-* Provide an API for using the Kairos Toolbar on responsive webtexts; the API will enable authors to specify breakpoints to match their own responsive designs. It might be worth investigating [a technique such as this](http://bricss.net/post/22198838298/easily-checking-in-javascript-if-a-css-media-query-has) to move the API into author’s CSS, rather than necessarily requiring a bunch of on-page JavaScript configuration.
+## Use in Webtexts
 
+### Basic: Loading the Toolbar with Defaults
 
-### Notes to Self
-* Be sure to look at list of assets at http://kairos.technorhetoric.net/toolbar/ -- all will need to be replaced, but for the sake of preservation, they should be downloaded and added to the `master` branch of this repository.
+Paste this line right before the closing `</body>` tag (not in the `<head>` — let the webtext load
+up everything it needs before the toolbar itself even begins to load):
 
-### To Do
-* The `kairosToolbarOptions` object should allow:
-  1. Custom Kairos/APA-style titles (e.g., for titles that include proper nouns) **DONE.**
-  2. Custom Author names (to address the issue of names Mies van der Rohe, without having to inject non-breaking spaces into DC metadata) **DONE**.
-  3. The ability to disable to the toolbar’s display (e.g., for *inner* pages that have full-screen media). Honestly it’s probably better just not to load the toolbar in those cases, although the right toolbar design (e.g., vanishing on downward scroll, reappearing on upward) might make that moot.
+```html
+<script type="text/javascript" src="/toolbar/2.0/kairos-toolbar.min.js"></script>
+```
 
-* Make sure that my polite use of `jQuery.noConflict()` doesn’t inadvertently mess up author uses of jQuery; if it does, it’s probably possible to somehow use the BYO jQuery logic to change things up for jQuery users. **DONE**.
-* Determine the feasibility (and interest) of fully replacing the old toolbar in past webtexts. Given the above goals, that seems unlikely. It might be worth thinking about versioning the recreated toolbar filenames, if not.
+### Loading the Toolbar with Custom Options
+
+Paste these lines right before the closing `</body>` tag (not in the `<head>` — let the webtext load
+up everything it needs before the toolbar itself even begins to load):
+
+```
+<script type="text/javascript">
+//<![CDATA[
+/*
+kairosToolbarOptions = {
+  formattedTitle: {
+    tc: "George Lucas Whipped Up a Winner with <i>Star Wars</i>",
+    sc: "George Lucas whipped up a winner with <i>Star Wars</i>",
+  },
+  authorList: {
+    full: "van der Rohe, Mies and Marquis de Sade",
+    abbr: "van der Rohe, M., &amp; de Sade, M.",
+    fullamp: "van der Rohe, Mies, &amp; de Sade, Marquis"
+  }
+}
+*/
+//]]>
+</script>
+<script type="text/javascript" src="/toolbar/2.0/kairos-toolbar.min.js"></script>
+```
+
+### Custom Options
+
+The toolbar accepts a hash of custom options, `kairosToolbarOptions`, for webtexts that have special
+or complex titles and author names.
+
+#### Titles with Proper Nouns or Italics
+
+Sometimes titles are more complex than can be represented in the plain text of Dublin Core metadata.
+That includes titles with proper nouns, as well as titles that refer to other major titles. The
+toolbar automatically adds quotation marks and terminal punctuation as needed to webtext titles, so
+do not add them here.
+
+Also, because the as-is Dublin Core metadata will preserve proper nouns, the toolbar can just use
+that for Title Case titles, and you can submit just the Sentence case title you need to specifically
+modify.
+
+```javascript
+kairosToolbarOptions = {
+  formattedTitle: {
+    sc: "Some great title",
+    tc: "Some Great Title"
+  }
+}
+```
+
+### Authors with Compound Last Names
+
+The toolbar automatically inverts first and last names, and creates initials for styles that do not
+use full first names. However, when names are more complex, the toolbar can do weird things. Passing
+in these values manually will ensure proper citation display. Note that the `abbr` and `fullamp`
+(full name plus ampersand) lists should use an escaped ampersand, `&amp;`, before the final author
+name in the list. (`full`, for simple full names, should just use an `and`):
+
+```javascript
+kairosToolbarOptions = {
+  authorList: {
+    full: "van der Rohe, Mies and Marquis de Sade",
+    abbr: "van der Rohe, M., &amp; de Sade, M.",
+    fullamp: "van der Rohe, Mies, &amp; de Sade, Marquis"
+  }
+}
+```
+
+## Some Guidelines for Webtext Preparation
+
+* It would be best if authors set any background image/color on `html` rather than on `body` in their CSS.
+
