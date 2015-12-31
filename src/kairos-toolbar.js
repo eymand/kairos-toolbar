@@ -266,7 +266,7 @@ kairosToolbarInit = function() {
       function prepareHTML() {
         return  "<div id=\"krtp-toolbar\">" +
                 "<div id=\"krtp-watermark\">" +
-                "<img id=\"krtp-logo\" src=\"/dist/assets/kairos-logo-light.png\" alt=\"Kairos logo\" />" +
+                "<img id=\"krtp-logo\" src=\"/toolbar/0.1/assets/kairos-logo-light.png\" alt=\"Kairos logo\" />" +
                 "</div>" +
                 "<div id=\"krtp-content\">" +
                 "<b id=\"krtp-title\">Kairos: A Journal of Rhetoric, Technology, and&nbsp;Pedagogy</b>" +
@@ -349,7 +349,7 @@ kairosToolbarInit = function() {
       // ...and insert it into the DOM
 
       // Also load up the external CSS file for styling the toolbar
-      $('head').append('<link rel="stylesheet" type="text/css" href="/dist/kairos-toolbar.css" />');
+      $('head').append('<link rel="stylesheet" type="text/css" href="/toolbar/0.1/kairos-toolbar.css" />');
       // Check for the presence of <meta name="viewport"> tag; if it doesn't exist, assume we're
       // dealing with a non-responsive webtext. Otherwise, load up a responsive CSS prefix on
       // <html>
