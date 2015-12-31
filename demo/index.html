@@ -17,7 +17,6 @@
   <meta name="DC.identifier" content="http://kairos.technorhetoric.net/17.3/topoi/neal-et-al/index.html"/>
   <meta name="DC.source" content="17.3" />
   <meta name="DCTERMS.isPartOf" content="Topoi" />
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 </head>
 <body>
 <h1 id="test">Nothing is Happening</h1>
@@ -27,14 +26,13 @@
 /*
 kairosToolbarOptions = {
   formattedTitle: {
-    mla: "George Lucas Whipped Up a Winner with <i>Star Wars</i>",
-    apa: "George Lucas whipped up a winner with <i>Star Wars</i>",
-    kairos: "George Lucas whipped up a winner with <i>Star Wars</i>"
+    tc: "George Lucas Whipped Up a Winner with <i>Star Wars</i>",
+    sc: "George Lucas whipped up a winner with <i>Star Wars</i>",
   },
   authorList: {
-    mla: "van der Rohe, Mies",
-    apa: "van der Rohe, M.",
-    kairos: "van der Rohe, Mies"
+    full: "van der Rohe, Mies and Marquis de Sade",
+    abbr: "van der Rohe, M., &amp; de Sade, M.",
+    fullamp: "van der Rohe, Mies, &amp; de Sade, Marquis"
   }
 }
 */
@@ -43,6 +41,7 @@ kairosToolbarOptions = {
 <script src="../src/kairos-toolbar.js"></script>
 <!--<script src="../dist/kairos-toolbar-0.1.0.min.js"></script>-->
 <script>
+<!--This is just to prove that $ will remain undisturbed by the toolbar-->
 $(document).ready(function() {
   $('h1').text('Something is happening');
 });
