@@ -255,24 +255,24 @@ kairosToolbarInit = function() {
 
       // Function for building the HTML payload
       function prepareHTML() {
-        return  "<div id=\"kt-kairos-toolbar\">" +
-                "<div id=\"kt-kairos-watermark\">" +
-                "<img id=\"kt-kairos-logo\" src=\"../dist/assets/kairos-logo.png\" alt=\"Kairos logo\" />" +
+        return  "<div id=\"krtp-toolbar\">" +
+                "<div id=\"krtp-watermark\">" +
+                "<img id=\"krtp-logo\" src=\"../dist/assets/kairos-logo.png\" alt=\"Kairos logo\" />" +
                 "</div>" +
-                "<div id=\"kt-kairos-content\">" +
-                "<b id=\"kt-kairos-title\">Kairos: A Journal of Rhetoric, Technology,&nbsp;and&nbsp;Pedagogy</b>" +
+                "<div id=\"krtp-content\">" +
+                "<b id=\"krtp-title\">Kairos: A Journal of Rhetoric, Technology,&nbsp;and&nbsp;Pedagogy</b>" +
                 "<p><a href=\"http://kairos.technorhetoric.net/"+DC.source+"/\">Issue "+DC.source+" Contents</a></p>" +
-                "<dl id=\"kt-citations\">" +
-                "<dt id=\"kt-kairos-btn\">Kairos</dt>" +
-                "<dd id=\"kt-kairos\" class=\"kt-citation active\">" +
+                "<dl id=\"krtp-citations\">" +
+                "<dt id=\"krtp-kairos-btn\">Kairos</dt>" +
+                "<dd id=\"krtp-kairos\" class=\"krtp-citation active\">" +
                 DC.authorList.kairos + " (" + DC.publicationYear + "). " + DC.formattedTitle.kairos + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved " + processAccessDate('kairos') + ", from " + DC.identifier +
                 "</dd>" +
-                "<dt id=\"kt-mla-btn\">MLA</dt>" +
-                "<dd id=\"kt-mla\" class=\"kt-citation\">" +
+                "<dt id=\"krtp-mla-btn\">MLA</dt>" +
+                "<dd id=\"krtp-mla\" class=\"krtp-citation\">" +
                 DC.authorList.mla + ". “" + DC.formattedTitle.mla + ".” <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy</cite> " + DC.source + " (" + DC.publicationYear + "). Web. " + processAccessDate('mla') + ". &lt;" + DC.identifier + "&gt;" +
                 "</dd>" +
-                "<dt id=\"kt-apa-btn\">APA</dt>" +
-                "<dd id=\"kt-apa\" class=\"kt-citation\">" +
+                "<dt id=\"krtp-apa-btn\">APA</dt>" +
+                "<dd id=\"krtp-apa\" class=\"krtp-citation\">" +
                 DC.authorList.apa + " (" + DC.publicationYear + "). " + DC.formattedTitle.apa + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
                 "</dd>" +
                 "</dl>" +
@@ -300,10 +300,10 @@ kairosToolbarInit = function() {
             didScroll = false;
             if (lastScroll > currentScroll || currentScroll == 0 || lastScroll == currentScroll) {
               // Someone is scrolling back up, or they're at the top of the page
-              $('#kt-kairos-toolbar').removeClass('muted');
+              $('#krtp-toolbar').removeClass('muted');
             }
             else if (currentScroll > lastScroll) {
-              $('#kt-kairos-toolbar').addClass('muted');
+              $('#krtp-toolbar').addClass('muted');
             }
             lastScroll = currentScroll;
           }
@@ -315,11 +315,11 @@ kairosToolbarInit = function() {
       // Register all of the toolbar events
       function registerToolbarEvents() {
         watchScrolling();
-        $('#kt-kairos-watermark').on('click', function() {
-          $('#kt-kairos-toolbar').toggleClass('expanded');
+        $('#krtp-watermark').on('click', function() {
+          $('#krtp-toolbar').toggleClass('expanded');
         });
-        $('#kt-citations dt').on('click', function() {
-          $('#kt-citations dd').removeClass('active');
+        $('#krtp-citations dt').on('click', function() {
+          $('#krtp-citations dd').removeClass('active');
           $(this).next('dd').addClass('active');
         });
       }
@@ -341,7 +341,7 @@ kairosToolbarInit = function() {
       // dealing with a non-responsive webtext. Otherwise, load up a responsive CSS prefix on
       // <html>
       if($('meta[name="viewport"]', 'head').length > 0) {
-        $('html').addClass('kt-rwd');
+        $('html').addClass('krtp-rwd');
       }
 
       // Check the viewport size and a CSS content: property to determine initial state, and

@@ -1,10 +1,10 @@
 body {
   color: red;
   min-height: 1000px;
-  html.kt-rwd & { color: blue; }
+  html.krtp-rwd & { color: blue; }
 }
-#kt-kairos-toolbar *,
-#kt-kairos-toolbar {
+#krtp-toolbar *,
+#krtp-toolbar {
   font-family: Helvetica, Arial, sans-serif;
   font-size: small;
   line-height: 1.3;
@@ -17,10 +17,10 @@ body {
   text-decoration: none;
   border: 0;
 }
-#kt-kairos-toolbar * {
+#krtp-toolbar * {
   color: inherit;
 }
-#kt-kairos-toolbar {
+#krtp-toolbar {
   position: fixed;
   width: 100%;
   left: 0;
@@ -39,57 +39,57 @@ body {
   opacity: 1;
 }
 
-  #kt-kairos-watermark {
+  #krtp-watermark {
     width: 100%;
     padding: .5em 0;
   }
-  &.muted #kt-kairos-watermark,
-  &.muted #kt-kairos-content {
+  &.muted #krtp-watermark,
+  &.muted #krtp-content {
     background: none;
   }
 
-  #kt-kairos-content {
+  #krtp-content {
     display: none;
     color: #FFF;
   }
-  &.expanded #kt-kairos-content {
+  &.expanded #krtp-content {
     padding: 1em;
     display: block;
     background: #600;
     color: #FFF;
   }
 
-  #kt-kairos-logo {
+  #krtp-logo {
     display: block;
     max-width: 100%;
     width: 3em;
     margin: 0 auto;
   }
 
-  #kt-citations {
+  #krtp-citations {
     position: relative;
   }
-  #kt-citations dt {
+  #krtp-citations dt {
     position: absolute;
     top: 0;
   }
-  #kt-kairos-btn {
+  #krtp-btn {
     left: 0;
     width: 30%;
   }
-  #kt-mla-btn {
+  #krtp-mla-btn {
     left: 33%;
     width: 30%;
   }
-  #kt-apa-btn {
+  #krtp-apa-btn {
     left: 66%;
     width: 30%;
   }
 
-  #kt-citations dd {
+  #krtp-citations dd {
     display: none;
   }
-  #kt-citations dd.active {
+  #krtp-citations dd.active {
     padding-top: 2em;
     display: block;
   }
