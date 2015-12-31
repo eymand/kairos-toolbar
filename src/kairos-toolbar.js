@@ -157,7 +157,7 @@ kairosToolbarInit = function() {
           DC.authorList = {
             // Use the DC metadata in rare situations where only some titles need correction
             full: options.authorList.full || authorList('full',names), // Full names + and
-            fullamp: options.authorList.full || authorList('fullamp',names), // Full names + ampersand
+            fullamp: options.authorList.fullamp || authorList('fullamp',names), // Full names + ampersand
             abbr: options.authorList.abbr || authorList('abbr',names)
           };
         }
