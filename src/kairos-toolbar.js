@@ -70,9 +70,9 @@ kairosToolbarInit = function() {
       // TODO: Enable these to be overridden by the options hash
       var DC = {
         creator: [], // Hold one or more creators (separate in Dublin core)
-        authorList: {mla: "", kairos: "", apa: ""}, // Formatted author lists
-        accessDate: {mla: "", kairos: ""}, // placeholder for different access-date styles
-        formattedTitle: {mla: "", kairos: "", apa: ""}, // raw or Sentence case titles
+        authorList: {full: "", abbr: ""}, // Formatted author lists, full names or abbr first names
+        accessDate: {colubmia: "", kairos: ""}, // placeholder for different access-date styles
+        formattedTitle: {tc: "", sc: ""}, // Title Case or Sentence case titles
         volume: "",
         issue: "",
         publicationYear: ""
@@ -97,12 +97,16 @@ kairosToolbarInit = function() {
           ['November','Nov'],
           ['December','Dec']
         ];
-        if (style=="mla") {
+        // Neither Chicago no APA styles require an access date,
+        // only Columbia and Kairos styles
+        if (style=="columbia") {
+          // 31 December 2016
           return currentDate.getDate() +
-                 ' ' + months[currentDate.getMonth()][1] +
-                 '. ' + currentDate.getFullYear();
+                 ' ' + months[currentDate.getMonth()][0] +
+                 ' ' + currentDate.getFullYear();
         }
         if (style=="kairos") {
+          // December 31, 206
           return months[currentDate.getMonth()][0] +
                  ' ' + currentDate.getDate() +
                  ', ' + currentDate.getFullYear();
@@ -114,6 +118,8 @@ kairosToolbarInit = function() {
       // elements and populating the DC object
       function buildDC() {
         var metaDC = $('meta[name^="DC"]', 'head'); // look for <meta name="DC... in <head>
+        // This is backward compatible with both DC. and DCTERMS. prefixes.
+
         // Function to extract volume and issue number from DC.series
         function processYear(date) {
           DC.publicationYear = DC.date.substr(0,4);
@@ -149,26 +155,24 @@ kairosToolbarInit = function() {
         // Handle custom author lists
         if (options.authorList) {
           DC.authorList = {
-            kairos: options.authorList.kairos || authorList('kairos',names),
-            apa: options.authorList.apa || authorList('apa',names),
-            mla: options.authorList.mla || authorList('mla',names)
+            // Use the DC metadata in rare situations where only some titles need correction
+            full: options.authorList.full || authorList('full',names), // Full names + and
+            fullamp: options.authorList.full || authorList('fullamp',names), // Full names + ampersand
+            abbr: options.authorList.abbr || authorList('abbr',names)
           };
         }
         else {
           DC.authorList = {
-            kairos: authorList('kairos',names),
-            apa: authorList('apa',names),
-            mla: authorList('mla',names)
+            full: authorList('full',names), // Full names + and
+            fullamp: authorList('fullamp',names), // Full names + ampersand
+            abbr: authorList('abbr',names)
           };
         }
 
         function processAuthor(style,name) {
           name = name.split(" "); // Separate name parts into an array
           var lastname = name.pop(); // right now, Jr., III, etc. will break this
-          if ((style == "mla") || (style == "kairos")) {
-            return lastname + ", " + name.join(" ");
-          }
-          if (style == "apa") {
+          if (style == "abbr") {
             // Older IE (before v. 9) will choke on .map, e.g.,
             // name.map(processInitials).join(" ")
             // so use the jQuery $.map instead
@@ -176,8 +180,9 @@ kairosToolbarInit = function() {
             name = $.map(name, function(n) {
               return processInitials(n);
             });
-            return lastname + ", " + name.join(" ");
           }
+          return lastname + ", " + name.join(" ");
+
           function processInitials(name) {
             return name.substr(0,1) + ".";
           }
@@ -202,18 +207,18 @@ kairosToolbarInit = function() {
         function authorList(style,names) {
           var processedNames = [], andStyle, i;
 
-          if (style == "mla") {
-            andStyle = "and"; // final author separated by 'and' in MLA
-            // Only the first author becomes Lastname, Firstname in MLA Style
+          if (style == "full") {
+            andStyle = "and"; // final author separated by 'and'
+            // Only the first author becomes Lastname, Firstname in Chicago & Columbia styles
             processedNames[0] = processAuthor(style,names[0]);
             // Push remainder of names into processedNames array as-is
             for(i = 1; i < names.length; i++) {
               processedNames.push(names[i]);
             }
           }
-
-          if ((style == "apa") || (style=="kairos")) {
-            andStyle = "&amp;"; // final author separated by ', &' in APA
+          // abbr and fullamp styles
+          else {
+            andStyle = "&amp;"; // final author separated by ', &' in APA and Kairos
             // All authors become, Lastname, F. M. in APA style
             for(i = 0; i < names.length; i++) {
               processedNames.push(processAuthor(style,names[i]));
@@ -230,17 +235,15 @@ kairosToolbarInit = function() {
         if (options.formattedTitle) {
           DC.formattedTitle = {
             // Use titles from options; may contain HTML, e.g., "Awesome stuff in <i>Star Wars</i>"
-            kairos: options.formattedTitle.kairos || sentenceCase(DC.title),
-            apa: options.formattedTitle.apa || sentenceCase(DC.title),
-            mla: options.formattedTitle.mla || DC.title
+            sc: options.formattedTitle.sc || sentenceCase(DC.title),
+            tc: options.formattedTitle.tc || DC.title
           };
         }
         else {
           DC.formattedTitle = {
             // Use titles from options; may contain HTML, e.g., "Awesome stuff in <i>Star Wars</i>"
-            kairos: sentenceCase(DC.title),
-            apa: sentenceCase(DC.title),
-            mla: DC.title
+            sc: sentenceCase(DC.title),
+            tc: DC.title
           };
         }
 
@@ -270,17 +273,21 @@ kairosToolbarInit = function() {
                 "<p id=\"krtp-issue\"><a href=\"http://kairos.technorhetoric.net/"+DC.source+"/\">View Issue "+DC.source+" Contents</a></p>" +
                 "<h5>Cite this Webtext. Choose a Style:</h5>" +
                 "<dl id=\"krtp-citations\">" +
-                "<dt id=\"krtp-kairos-btn\" class=\"active\">Kairos</dt>" +
-                "<dd id=\"krtp-kairos\" class=\"krtp-citation active\">" +
-                DC.authorList.kairos + " (" + DC.publicationYear + "). " + DC.formattedTitle.kairos + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved " + processAccessDate('kairos') + ", from " + DC.identifier +
+                "<dt id=\"krtp-kai-btn\" class=\"krtp-btn active\">Kairos</dt>" +
+                "<dd id=\"krtp-kai\" class=\"krtp-citation active\">" +
+                DC.authorList.fullamp + " (" + DC.publicationYear + "). " + DC.formattedTitle.sc + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved " + processAccessDate('kairos') + ", from " + DC.identifier +
                 "</dd>" +
-                "<dt id=\"krtp-mla-btn\">MLA</dt>" +
-                "<dd id=\"krtp-mla\" class=\"krtp-citation\">" +
-                DC.authorList.mla + ". “" + DC.formattedTitle.mla + ".” <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy</cite> " + DC.source + " (" + DC.publicationYear + "). Web. " + processAccessDate('mla') + ". &lt;" + DC.identifier + "&gt;" +
+                "<dt id=\"krtp-chi-btn\" class=\"krtp-btn\">Chicago</dt>" +
+                "<dd id=\"krtp-chi\" class=\"krtp-citation\">" +
+                DC.authorList.full + ". “" + DC.formattedTitle.tc + ".” <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy</cite> " + DC.volume + ", no. " + DC.issue + " (" + DC.publicationYear + "). " + DC.identifier +
                 "</dd>" +
-                "<dt id=\"krtp-apa-btn\">APA</dt>" +
+                "<dt id=\"krtp-col-btn\" class=\"krtp-btn\">Columbia</dt>" +
+                "<dd id=\"krtp-col\" class=\"krtp-citation\">" +
+                DC.authorList.full + ". “" + DC.formattedTitle.tc + ".” <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy</cite> " + DC.source + " (" + DC.publicationYear + "). " +  DC.identifier + " (" + processAccessDate('columbia') + ")." +
+                "</dd>" +
+                "<dt id=\"krtp-apa-btn\" class=\"krtp-btn\">APA</dt>" +
                 "<dd id=\"krtp-apa\" class=\"krtp-citation\">" +
-                DC.authorList.apa + " (" + DC.publicationYear + "). " + DC.formattedTitle.apa + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
+                DC.authorList.abbr + " (" + DC.publicationYear + "). " + DC.formattedTitle.sc + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
                 "</dd>" +
                 "</dl>" +
                 "</div>" +
