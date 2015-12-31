@@ -260,7 +260,8 @@ kairosToolbarInit = function() {
                 "<img id=\"kt-kairos-logo\" src=\"../dist/assets/kairos-logo.png\" alt=\"Kairos logo\" />" +
                 "</div>" +
                 "<div id=\"kt-kairos-content\">" +
-                "<cite id=\"kt-kairos-title\">Kairos: A Journal of Rhetoric, Technology, and Pedagogy</cite>" +
+                "<b id=\"kt-kairos-title\">Kairos: A Journal of Rhetoric, Technology,&nbsp;and&nbsp;Pedagogy</b>" +
+                "<p><a href=\"http://kairos.technorhetoric.net/"+DC.source+"/\">Issue "+DC.source+" Contents</a></p>" +
                 "<dl id=\"kt-citations\">" +
                 "<dt id=\"kt-kairos-btn\">Kairos</dt>" +
                 "<dd id=\"kt-kairos\" class=\"kt-citation active\">" +
@@ -275,7 +276,6 @@ kairosToolbarInit = function() {
                 DC.authorList.apa + " (" + DC.publicationYear + "). " + DC.formattedTitle.apa + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
                 "</dd>" +
                 "</dl>" +
-                "<p><a href=\"http://kairos.technorhetoric.net/"+DC.source+"/\">Issue "+DC.source+" Contents</a></p>" +
                 "</div>" +
                 "</div>";
       }
