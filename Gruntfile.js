@@ -8,7 +8,7 @@ module.exports = function(grunt) {
       },
       build: {
         src: 'src/<%= pkg.name %>.js',
-        dest: 'dist/<%= pkg.name + "-" + pkg.version %>.min.js'
+        dest: 'dist/<%= pkg._release %>/<%= pkg.name %>.min.js'
       }
     },
     jshint: {
@@ -27,13 +27,13 @@ module.exports = function(grunt) {
           style: 'expanded'
         },
         files: {
-          'dist/kairos-toolbar.css':'src/kairos-toolbar.scss'
+          'dist/<%= pkg._release %>/<%= pkg.name %>.css':'src/<%= pkg.name %>.scss'
         }
       }
     },
     watch: {
       css: {
-        files: 'src/kairos-toolbar.scss',
+        files: 'src/<%= pkg.name %>.scss',
         tasks: ['sass']
       }
     },
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
           expand: true,
           cwd: 'src/',
           src: ['assets/*'],
-          dest: 'dist/'
+          dest: 'dist/<%= pkg._release %>/'
         }]
       }
     }
