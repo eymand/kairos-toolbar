@@ -22,7 +22,8 @@
 <h1 id="test">Nothing is Happening</h1>
 
 <!--Custom toolbar options hash, if any-->
-<script>
+<script type="text/javascript">
+//<![CDATA[
 /*
 kairosToolbarOptions = {
   formattedTitle: {
@@ -36,11 +37,12 @@ kairosToolbarOptions = {
   }
 }
 */
+//]]>
 </script>
 <!--Last script on the page should be loading the Kairos toolbar-->
-<script src="../src/kairos-toolbar.js"></script>
+<script type="text/javascript" src="../src/kairos-toolbar.js"></script>
 <!--<script src="../dist/kairos-toolbar-0.1.0.min.js"></script>-->
-<script>
+<script type="text/javascript">
 <!--This is just to prove that $ will remain undisturbed by the toolbar-->
 $(document).ready(function() {
   $('h1').text('Something is happening');
