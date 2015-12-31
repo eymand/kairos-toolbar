@@ -285,9 +285,8 @@ kairosToolbarInit = function() {
         return $(window).scrollTop();
       }
 
-      // Function to 'mute' the toolbar when someone is scrolling down (reading)
+      // Function to 'mute' the toolbar when someone scrolls down
       function watchScrolling() {
-        var lastScroll = verticalScroll();
         var didScroll = false;
 
         $(window).on('scroll', function() {
@@ -298,14 +297,13 @@ kairosToolbarInit = function() {
           if(didScroll) {
             var currentScroll = verticalScroll();
             didScroll = false;
-            if (lastScroll > currentScroll || currentScroll == 0 || lastScroll == currentScroll) {
-              // Someone is scrolling back up, or they're at the top of the page
+            if (currentScroll < 100) {
+              // Someone is scrolling back up to the top of the page
               $('#krtp-toolbar').removeClass('muted');
             }
-            else if (currentScroll > lastScroll) {
+            else if (currentScroll > 101) {
               $('#krtp-toolbar').addClass('muted');
             }
-            lastScroll = currentScroll;
           }
         }, 250);
       }
