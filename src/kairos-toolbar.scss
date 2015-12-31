@@ -1,3 +1,6 @@
+html {
+  padding-bottom: 4em;
+}
 #krtp-toolbar *,
 #krtp-toolbar {
   font-family: Helvetica, Arial, sans-serif;
@@ -33,13 +36,13 @@
   -moz-transition: opacity .5s ease-in;
   transition: opacity .5s ease-in;
 
-&.muted {
-  opacity: .7;
-}
-&.expanded {
-  opacity: 1;
-  padding-top: .5em;
-}
+  &.muted {
+    opacity: .7;
+  }
+  &.expanded {
+    opacity: 1;
+    padding-top: .5em;
+  }
 
   #krtp-watermark {
     width: 100%;
@@ -96,6 +99,9 @@
 .krtp-btn {
   width: 18%;
 }
+.krtp-btn:hover {
+  cursor: pointer;
+}
 #krtp-kai-btn {
   left: 0;
 }
@@ -120,4 +126,83 @@
   text-indent: -2em;
   padding: 3.5em 0 0 2em;
   display: block;
+}
+
+@media screen and (min-width: 30em) {
+  #krtp-toolbar *,
+  #krtp-toolbar {
+    font-size: medium;
+  }
+
+  #krtp-toolbar {
+    &.expanded {
+      padding-top: .5em;
+    }
+    #krtp-watermark {
+      padding: 1em;
+    }
+    #krtp-content {
+    }
+    &.expanded #krtp-content {
+      padding: 2em 1em 2em 1em;
+    }
+  }
+
+  #krtp-logo {
+    margin: 0 0;
+    width: 4em;
+  }
+  #krtp-title {
+    text-align: left;
+    z-index: 1001;
+    position: absolute;
+    top: 1.5em;
+    left: 6em;
+    margin: 0;
+  }
+  #krtp-issue {
+    position: absolute;
+    top: 4.5em;
+    left: 6em;
+    padding: 0em;
+    text-align: left;
+  }
+}
+
+@media screen and (min-width: 43em) {
+  #krtp-toolbar *,
+  #krtp-toolbar {
+  }
+
+  #krtp-toolbar {
+    &.expanded {
+      padding-top: 1em;
+    }
+    #krtp-watermark {
+      padding: 1em 2em 1em 2em;
+    }
+    #krtp-content {
+    }
+    &.expanded #krtp-content {
+      padding: 2em 2em 2em 8em;
+    }
+  }
+
+  #krtp-logo {
+  }
+  #krtp-title {
+    text-align: left;
+    z-index: 1001;
+    position: absolute;
+    top: 2em;
+    left: 8em;
+    margin: 0;
+  }
+  #krtp-issue {
+    top: 5em;
+    left: 8em;
+  }
+  #krtp-citations {
+    max-width: 40em;
+  }
 }
