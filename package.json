@@ -1,6 +1,7 @@
 {
   "name": "kairos-toolbar",
   "version": "0.1.0",
+  "_release": "0.1",
   "description": "The Kairos Toolbar for branding and providing citation information on Kairos webtexts.",
   "repository": {
     "type": "git",
