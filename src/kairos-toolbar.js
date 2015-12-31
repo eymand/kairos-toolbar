@@ -261,9 +261,9 @@ kairosToolbarInit = function() {
                 "</div>" +
                 "<div id=\"kt-kairos-content\">" +
                 "<cite id=\"kt-kairos-title\">Kairos: A Journal of Rhetoric, Technology, and Pedagogy</cite>" +
-                "<dl class=\"kt-citations\">" +
+                "<dl id=\"kt-citations\">" +
                 "<dt id=\"kt-kairos-btn\">Kairos</dt>" +
-                "<dd id=\"kt-kairos\" class=\"kt-citation\">" +
+                "<dd id=\"kt-kairos\" class=\"kt-citation active\">" +
                 DC.authorList.kairos + " (" + DC.publicationYear + "). " + DC.formattedTitle.kairos + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved " + processAccessDate('kairos') + ", from " + DC.identifier +
                 "</dd>" +
                 "<dt id=\"kt-mla-btn\">MLA</dt>" +
@@ -280,11 +280,47 @@ kairosToolbarInit = function() {
                 "</div>";
       }
 
+      // Utility function to return $(window).scrollTop();
+      function verticalScroll() {
+        return $(window).scrollTop();
+      }
+
+      // Function to 'mute' the toolbar when someone is scrolling down (reading)
+      function watchScrolling() {
+        var lastScroll = verticalScroll();
+        var didScroll = false;
+
+        $(window).on('scroll', function() {
+          didScroll = true;
+        });
+
+        setInterval(function() {
+          if(didScroll) {
+            var currentScroll = verticalScroll();
+            didScroll = false;
+            if (lastScroll > currentScroll || currentScroll == 0 || lastScroll == currentScroll) {
+              // Someone is scrolling back up, or they're at the top of the page
+              $('#kt-kairos-toolbar').removeClass('muted');
+            }
+            else if (currentScroll > lastScroll) {
+              $('#kt-kairos-toolbar').addClass('muted');
+            }
+            lastScroll = currentScroll;
+          }
+        }, 250);
+      }
+
+
 
       // Register all of the toolbar events
       function registerToolbarEvents() {
+        watchScrolling();
         $('#kt-kairos-watermark').on('click', function() {
           $('#kt-kairos-toolbar').toggleClass('expanded');
+        });
+        $('#kt-citations dt').on('click', function() {
+          $('#kt-citations dd').removeClass('active');
+          $(this).next('dd').addClass('active');
         });
       }
 
