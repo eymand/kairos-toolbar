@@ -17,6 +17,7 @@
     "url": "https://github.com/karlstolley/kairos-toolbar/issues",
     "email": "karl.stolley@gmail.com"
   },
+  "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-contrib-copy": "^0.8.2",
