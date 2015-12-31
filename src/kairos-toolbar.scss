@@ -3,18 +3,32 @@ body {
   min-height: 1000px;
   html.kt-rwd & { color: blue; }
 }
+#kt-kairos-toolbar *,
 #kt-kairos-toolbar {
+  font-family: Helvetica, Arial, sans-serif;
   font-size: small;
   margin: 0;
   padding: 0;
+  background: none;
+  color: black;
+  text-align: left;
+  text-shadow: none;
+  text-decoration: none;
+  border: 0;
+}
+#kt-kairos-toolbar * {
+  color: inherit;
+}
+#kt-kairos-toolbar {
   position: fixed;
   width: 100%;
   left: 0;
   bottom: 0;
+  z-index: 1000;
   opacity: 1;
-  -webkit-transition: opacity 1s ease-in;
-  -moz-transition: opacity 1s ease-in;
-  transition: opacity 1s ease-in;
+  -webkit-transition: opacity .5s ease-in;
+  -moz-transition: opacity .5s ease-in;
+  transition: opacity .5s ease-in;
 
 &.muted {
   opacity: .2;
@@ -35,9 +49,13 @@ body {
 
   #kt-kairos-content {
     display: none;
+    color: #FFF;
   }
   &.expanded #kt-kairos-content {
+    padding: 1em;
     display: block;
+    background: #600;
+    color: #FFF;
   }
 
   #kt-kairos-logo {
