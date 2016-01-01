@@ -299,7 +299,7 @@ kairosToolbarInit = function() {
                 "<dl id=\"krtp-citations\">" +
                 "<dt id=\"krtp-kai-btn\" class=\"krtp-btn active\">Kairos</dt>" +
                 "<dd id=\"krtp-kai\" class=\"krtp-citation active\">" +
-                DC.authorList.fullamp + " (" + DC.publicationYear + "). " + DC.formattedTitle.sc + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved " + processAccessDate('kairos') + ", from " + DC.identifier +
+                DC.authorList.fullamp + ". (" + DC.publicationYear + "). " + DC.formattedTitle.sc + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved " + processAccessDate('kairos') + ", from " + DC.identifier +
                 "</dd>" +
                 "<dt id=\"krtp-chi-btn\" class=\"krtp-btn\">Chicago</dt>" +
                 "<dd id=\"krtp-chi\" class=\"krtp-citation\">" +
