@@ -361,7 +361,10 @@ kairosToolbarInit = function() {
           $(this).next('dd').addClass('active');
         });
         $('#krtp-remove').on('click', function() {
-          $('#krtp-toolbar.expanded').fadeTo("fast",0);
+          $('#krtp-toolbar.expanded').addClass('removed');
+          setTimeout(function() {
+            $('#krtp-toolbar').remove();
+          }, 500)
         });
       }
 

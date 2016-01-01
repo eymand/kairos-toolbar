@@ -44,6 +44,9 @@ html {
     opacity: 1;
     padding-top: .5em;
   }
+  &.expanded.removed {
+    opacity: 0;
+  }
 
   #krtp-watermark {
     width: 100%;
