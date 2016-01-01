@@ -87,3 +87,14 @@ kairosToolbarOptions = {
 
 * It would be best if authors set any background image/color on `html` rather than on `body` in their CSS.
 
+## Changelog
+
+### 2.0.1
+
+* Added missing period after Kairos-style author list
+* Reduce toolbar footprint by reducing logo size; maintain larger size on expanded state
+* Added a toggle to full remove toolbar; good for distraction-free reading & classroom projection
+
+### 2.0.0
+
+* Initial release of redesigned toolbar
