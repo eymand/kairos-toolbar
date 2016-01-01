@@ -89,6 +89,9 @@ kairosToolbarOptions = {
 
 ## Changelog
 
+### 2.0.2
+* Improved Remove Toolbar function to rely only on classes/CSS transitions, and fully remove the toolbar from the DOM to keep underlying links clickable
+
 ### 2.0.1
 
 * Added missing period after Kairos-style author list
