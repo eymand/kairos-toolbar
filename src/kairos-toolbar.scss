@@ -144,7 +144,10 @@ html {
 
   #krtp-toolbar {
     &.expanded {
-      padding-top: .5em;
+      padding-top: .25em;
+      #krtp-logo {
+        width: 4em;
+      }
     }
     #krtp-watermark {
       padding: 1em;
@@ -158,7 +161,7 @@ html {
 
   #krtp-logo {
     margin: 0 0;
-    width: 4em;
+    width: 3em;
   }
   #krtp-title {
     text-align: left;
