@@ -314,6 +314,7 @@ kairosToolbarInit = function() {
                 DC.authorList.abbr + " (" + DC.publicationYear + "). " + DC.formattedTitle.sc + ". <cite>Kairos: A Journal of Rhetoric, Technology, and Pedagogy " + DC.volume + "</cite>(" + DC.issue + "). Retrieved from " + DC.identifier +
                 "</dd>" +
                 "</dl>" +
+                "<p id=\"krtp-remove\"><b>Remove Toolbar</b></p>" +
                 "</div>" +
                 "</div>";
       }
@@ -358,6 +359,9 @@ kairosToolbarInit = function() {
           $('#krtp-citations dd, #krtp-citations dt').removeClass('active');
           $(this).addClass('active');
           $(this).next('dd').addClass('active');
+        });
+        $('#krtp-remove').on('click', function() {
+          $('#krtp-toolbar.expanded').fadeTo("fast",0);
         });
       }
 

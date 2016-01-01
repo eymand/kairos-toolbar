@@ -83,6 +83,11 @@ html {
   padding: 1em 0 1em 0;
   text-align: center;
 }
+#krtp-toolbar #krtp-remove {
+  color: darken(#4066B3, 20%);
+  padding: 1em 0 0 0;
+  text-align: right;
+}
 #krtp-citations {
   position: relative;
 }
@@ -100,6 +105,8 @@ html {
 .krtp-btn {
   width: 18%;
 }
+#krtp-watermark:hover,
+#krtp-remove:hover,
 .krtp-btn:hover {
   cursor: pointer;
 }
