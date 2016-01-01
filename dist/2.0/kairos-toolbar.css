@@ -1,0 +1,229 @@
+/*! kairos-toolbar v.2.0.2 (2016-01-01) */
+
+html {
+  padding-bottom: 4em;
+}
+
+#krtp-toolbar *,
+#krtp-toolbar {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: small;
+  line-height: 1.3;
+  margin: 0;
+  padding: 0;
+  background: none;
+  color: black;
+  text-align: left;
+  text-shadow: none;
+  text-decoration: none;
+  border: 0;
+  font-style: normal;
+  font-weight: normal;
+}
+
+#krtp-toolbar *:before,
+#krtp-toolbar *:after {
+  content: none;
+}
+
+#krtp-toolbar * {
+  color: inherit;
+}
+
+#krtp-toolbar {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  z-index: 1000;
+  background: #4066B3;
+  /* Kairos blue */
+  opacity: 1;
+  -webkit-transition: opacity .5s ease-in;
+  -moz-transition: opacity .5s ease-in;
+  transition: opacity .5s ease-in;
+}
+#krtp-toolbar.muted {
+  opacity: .7;
+}
+#krtp-toolbar.expanded {
+  opacity: 1;
+  padding-top: .5em;
+}
+#krtp-toolbar.expanded.removed {
+  opacity: 0;
+}
+#krtp-toolbar #krtp-watermark {
+  width: 100%;
+  padding: .5em 0;
+}
+#krtp-toolbar.muted #krtp-watermark, #krtp-toolbar.muted #krtp-content {
+  background: none;
+}
+#krtp-toolbar #krtp-content {
+  display: none;
+  color: #FFF;
+}
+#krtp-toolbar.expanded #krtp-content {
+  padding: 1em;
+  display: block;
+  background: #4066B3;
+  /* Kairos blue */
+  color: #FFF;
+}
+
+#krtp-logo {
+  display: block;
+  max-width: 100%;
+  width: 3em;
+  margin: 0 auto;
+}
+
+#krtp-title {
+  display: block;
+  width: 60%;
+  margin: 0 auto;
+  font-weight: bold;
+  text-align: center;
+}
+
+#krtp-issue {
+  padding: 1em 0 1em 0;
+  text-align: center;
+}
+
+#krtp-toolbar #krtp-remove {
+  color: #253b68;
+  padding: 1em 0 0 0;
+  text-align: right;
+}
+
+#krtp-citations {
+  position: relative;
+}
+
+#krtp-citations dt {
+  position: absolute;
+  padding: .2em;
+  margin: .8em 0 .8em 0;
+  text-align: center;
+  top: 0;
+}
+
+#krtp-citations dt.active {
+  color: #4066B3;
+  /* Kairos blue */
+  background: #FFF;
+}
+
+.krtp-btn {
+  width: 18%;
+}
+
+#krtp-watermark:hover,
+#krtp-remove:hover,
+.krtp-btn:hover {
+  cursor: pointer;
+}
+
+#krtp-kai-btn {
+  left: 0;
+}
+
+#krtp-chi-btn {
+  left: 22%;
+}
+
+#krtp-col-btn {
+  left: 44%;
+}
+
+#krtp-apa-btn {
+  left: 66%;
+}
+
+#krtp-citations dd {
+  display: none;
+}
+
+#krtp-citations dd cite,
+#krtp-citations dd i {
+  font-style: italic;
+}
+
+#krtp-citations dd.active {
+  text-indent: -2em;
+  padding: 3.5em 0 0 2em;
+  display: block;
+}
+
+@media screen and (min-width: 30em) {
+  #krtp-toolbar *,
+  #krtp-toolbar {
+    font-size: medium;
+  }
+
+  #krtp-toolbar.expanded {
+    padding-top: .25em;
+  }
+  #krtp-toolbar.expanded #krtp-logo {
+    width: 4em;
+  }
+  #krtp-toolbar #krtp-watermark {
+    padding: 1em;
+  }
+  #krtp-toolbar.expanded #krtp-content {
+    padding: 2em 1em 2em 1em;
+  }
+
+  #krtp-logo {
+    margin: 0 0;
+    width: 3em;
+  }
+
+  #krtp-title {
+    text-align: left;
+    z-index: 1001;
+    position: absolute;
+    top: 1.5em;
+    left: 6em;
+    margin: 0;
+  }
+
+  #krtp-issue {
+    position: absolute;
+    top: 4.5em;
+    left: 6em;
+    padding: 0em;
+    text-align: left;
+  }
+}
+@media screen and (min-width: 43em) {
+  #krtp-toolbar.expanded {
+    padding-top: 1em;
+  }
+  #krtp-toolbar #krtp-watermark {
+    padding: 1em 2em 1em 2em;
+  }
+  #krtp-toolbar.expanded #krtp-content {
+    padding: 2em 2em 2em 8em;
+  }
+
+  #krtp-title {
+    text-align: left;
+    z-index: 1001;
+    position: absolute;
+    top: 2em;
+    left: 8em;
+    margin: 0;
+  }
+
+  #krtp-issue {
+    top: 5em;
+    left: 8em;
+  }
+
+  #krtp-citations {
+    max-width: 40em;
+  }
+}
