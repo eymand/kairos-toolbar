@@ -428,6 +428,6 @@ kairosToolbarInit = function() {
 
     });
 
-  }(jQuery));
+  })(jQuery);
 };
 
