@@ -22,7 +22,6 @@ up everything it needs before the toolbar itself even begins to load):
 ```html
 <script type="text/javascript">
 //<![CDATA[
-/*
 kairosToolbarOptions = {
   formattedTitle: {
     tc: "George Lucas Whipped Up a Winner with <i>Star Wars</i>",
@@ -34,7 +33,6 @@ kairosToolbarOptions = {
     fullamp: "van der Rohe, Mies, &amp; de Sade, Marquis"
   }
 }
-*/
 //]]>
 </script>
 <script type="text/javascript" src="/toolbar/2.0/kairos-toolbar.min.js"></script>
