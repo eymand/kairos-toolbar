@@ -32,7 +32,7 @@ kairosToolbarOptions = {
     abbr: "van der Rohe, M., &amp; de Sade, M.",
     fullamp: "van der Rohe, Mies, &amp; de Sade, Marquis"
   }
-}
+};
 //]]>
 </script>
 <script type="text/javascript" src="/toolbar/2.0/kairos-toolbar.min.js"></script>
@@ -60,7 +60,7 @@ kairosToolbarOptions = {
     sc: "Some great title",
     tc: "Some Great Title"
   }
-}
+};
 ```
 
 ### Authors with Compound Last Names
@@ -78,7 +78,7 @@ kairosToolbarOptions = {
     abbr: "van der Rohe, M., &amp; de Sade, M.",
     fullamp: "van der Rohe, Mies, &amp; de Sade, Marquis"
   }
-}
+};
 ```
 
 ## Some Guidelines for Webtext Preparation
